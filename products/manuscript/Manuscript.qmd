@@ -1,7 +1,7 @@
 ---
-title: "Example Manuscript Template for a Data Analysis Project"
-subtitle: ""
-author: Andreas Handel
+title: "MADA Final Project"
+subtitle: "Trends in PrEP Use in the US, 2012-2022"
+author: Nicole Luisi
 date: "`r Sys.Date()`"
 format:
   docx:
@@ -12,6 +12,34 @@ bibliography: ../dataanalysis_template_references.bib
 csl: ../apa.csl
 ---
 
+
+# PART 1
+
+**Overview**: 
+
+The purpose of this analysis is to measure the public health impact of pre-exposure prophylaxis (PrEP) in the US over the past 10 years. Previous research by [Sullivan et al. (2018)](https://doi.org/10.1016/j.annepidem.2018.06.009) evaluated trends in the prevalence of PrEP use from 2012-2017. Outcomes include period prevalence of PrEP use and PrEP-to-need ratio (PnR) by year. This analysis will extend the previous work to include data through the year 2022; subgroups will include region, state, age group, gender, and race/ethnicity *(race/ethnicity PrEP data were not available at the time of the previous analysis and were not included)*. [@SULLIVAN2018833]
+
+**Data Source**:
+
+*Note: New diagnoses data are currently available through 2020; PrEP data through 2021. If 2021-2022 data are not available by the time the analysis needs to be completed, the analysis will be temporarily restricted to 2012-2020.*
+
++ HIV New Diagnoses: [AIDSVu](https://aidsvu.org/) [@Sullivan2020] 
++ PrEP and PnR: IQVIA (Quintiles IMS Holdings)
++ Annual Population Estimates: National Historical Geographic Information System (NHGIS), American Community Surveys (ACS), US Census Bureau
+    
+**Analysis**:
+
++ N/% of annual PrEP users by age, gender, race/ethnicity, and region
++ Annual prevalence of PrEP use per 100,000 population by age, gender, race/ethnicity, region, and state
++ Estimated annual percent change (EAPC) for prevalence
+  - Calculated using [Joinpoint Regression Software (R-Callable Command-Line Version 4.9.0.0)](https://surveillance.cancer.gov/help/joinpoint/tech-help/citation)
++ Prep-to-need ratio by age, gender, race/ethnicity, and region
++ Other modeling TBD based on course modules  
+
+
+
+{{< pagebreak >}}
+
 The structure below is one possible setup for a data analysis project (including the course project). For a manuscript, adjust as needed. 
 You don't need to have exactly these sections, but the content covering those sections should be addressed.
 
@@ -20,8 +48,8 @@ This uses MS Word as output format. [See here](https://quarto.org/docs/output-fo
 
 ```{r, echo=FALSE, message=FALSE}
 # load a few R packages
-library(here)
-library(knitr)
+#library(here)
+#library(knitr)
 ```
 
 
@@ -46,7 +74,7 @@ _State the research questions you plan to answer with this analysis._
 
 To cite other work (important everywhere, but likely happens first in introduction), make sure your references are in the bibtex file specified in the YAML header above (here `dataanalysis_template_references.bib`) and have the right bibtex key. Then you can include like this:
 
-Examples of reproducible research projects can for instance be found in [@mckay2020; @mckay2020a]
+Examples of reproducible research projects can for instance be found in []
 
 {{< pagebreak >}}
 
@@ -86,8 +114,8 @@ Note the loading of the data providing a **relative** path using the `../../` no
 #| label: tbl-summarytable
 #| tbl-cap: "Data summary table."
 #| echo: FALSE
-resulttable=readRDS("../../results/summarytable.rds")
-knitr::kable(resulttable)
+#resulttable=readRDS("../../results/summarytable.rds")
+#knitr::kable(resulttable)
 ```
 
 
@@ -103,7 +131,7 @@ _To get some further insight into your data, if reasonable you could compute sim
 #| label: fig-result
 #| fig-cap: "Height and weight stratified by sex."
 #| echo: FALSE
-knitr::include_graphics(here("results","height_weight_stratified.png"))
+#knitr::include_graphics(here("results","height_weight_stratified.png"))
 ```
 
 
@@ -117,8 +145,8 @@ Example @tbl-resulttable2 shows a summary of a linear model fit.
 #| label: tbl-resulttable2
 #| tbl-cap: "Linear model fit table."
 #| echo: FALSE
-resulttable2 = readRDS(here("results","resulttable2.rds"))
-knitr::kable(resulttable2)
+#resulttable2 = readRDS(here("results","resulttable2.rds"))
+#knitr::kable(resulttable2)
 ```
 
 
@@ -138,9 +166,9 @@ _What are the main take-home messages?_
 
 _Include citations in your Rmd file using bibtex, the list of references will automatically be placed at the end_
 
-This paper [@leek2015] discusses types of analyses. 
+This paper [] discusses types of analyses. 
 
-These papers [@mckay2020; @mckay2020a] are good examples of papers published using a fully reproducible setup similar to the one shown in this template. 
+These papers [] are good examples of papers published using a fully reproducible setup similar to the one shown in this template. 
 
 Note that this cited reference will show up at the end of the document, the reference formatting is determined by the CSL file specified in the YAML header. Many more style files for almost any journal [are available](https://www.zotero.org/styles). You also specify the location of your bibtex reference file in the YAML. You can call your reference file anything you like, I just used the generic word `references.bib` but giving it a more descriptive name is probably better.
 
