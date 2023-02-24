@@ -1,6 +1,6 @@
 ---
 title: "MADA Final Project"
-subtitle: "Trends in PrEP Use in the US, 2012-2022"
+subtitle: "Trends in New HIV Diagnoses in the US, 2008-2022"
 author: Nicole Luisi
 date: "`r Sys.Date()`"
 format:
@@ -12,53 +12,22 @@ bibliography: ../dataanalysis_template_references.bib
 csl: ../apa.csl
 ---
 
-
-# PART 1
-
-**Overview**: 
-
-The purpose of this analysis is to measure the public health impact of pre-exposure prophylaxis (PrEP) in the US over the past 10 years. Previous research by [Sullivan et al. (2018)](https://doi.org/10.1016/j.annepidem.2018.06.009) evaluated trends in the prevalence of PrEP use from 2012-2017. Outcomes include period prevalence of PrEP use and PrEP-to-need ratio (PnR) by year. This analysis will extend the previous work to include data through the year 2022; subgroups will include region, state, age group, gender, and race/ethnicity *(race/ethnicity PrEP data were not available at the time of the previous analysis and were not included)*. [@SULLIVAN2018833]
-
-**Data Source**:
-
-*Note: New diagnoses data are currently available through 2020; PrEP data through 2021. If 2021-2022 data are not available by the time the analysis needs to be completed, the analysis will be temporarily restricted to 2012-2020.*
-
-+ HIV New Diagnoses: [AIDSVu](https://aidsvu.org/) [@Sullivan2020] 
-+ PrEP and PnR: IQVIA (Quintiles IMS Holdings)
-+ Annual Population Estimates: National Historical Geographic Information System (NHGIS), American Community Surveys (ACS), US Census Bureau
-    
-**Analysis**:
-
-+ N/% of annual PrEP users by age, gender, race/ethnicity, and region
-+ Annual prevalence of PrEP use per 100,000 population by age, gender, race/ethnicity, region, and state
-+ Estimated annual percent change (EAPC) for prevalence
-  - Calculated using [Joinpoint Regression Software (R-Callable Command-Line Version 4.9.0.0)](https://surveillance.cancer.gov/help/joinpoint/tech-help/citation)
-+ Prep-to-need ratio by age, gender, race/ethnicity, and region
-+ Other modeling TBD based on course modules  
-
-
-
-{{< pagebreak >}}
-
-The structure below is one possible setup for a data analysis project (including the course project). For a manuscript, adjust as needed. 
-You don't need to have exactly these sections, but the content covering those sections should be addressed.
-
-This uses MS Word as output format. [See here](https://quarto.org/docs/output-formats/ms-word.html) for more information. You can switch to other formats, like html or pdf. See [the Quarto documentation](https://quarto.org/) for other formats.
-
+Note: There seem to be  lot of issues getting tables to render well in Word doc format, need to come back to this. I tried 5 or so different methods and they all look terrible when in a doc vs html. Also having issues with resolving crossrefs. 
 
 ```{r, echo=FALSE, message=FALSE}
-# load a few R packages
-#library(here)
-#library(knitr)
+# load R packages
+library(here) 
+library(ggplot2)
+library(skimr) 
+library(plotly)
+library(gt)
+library(knitr)
 ```
 
 
-
 # Summary/Abstract
-_Write a summary of your project._
 
-
-{{< pagebreak >}}
+The purpose of this analysis is to analyze US trends in new HIV diagnoses over the past 10 years. Previous research by [Chapin-Bardales et al. (2017)](https://doi.org/10.1016/j.annepidem.2017.04.002) evaluated trends in AIDS diagnosis rates by race/ethnicity between 1984-2013. This analysis will focus on new HIV diagnosesbetween  2008-2022; subgroups will include region, age group, gender, and race/ethnicity. [@Chapin2017]
 
 
 # Introduction 
@@ -67,14 +36,24 @@ _Write a summary of your project._
 _Provide enough background on your topic that others can understand the why and how of your analysis_ 
 
 ## Description of data and data source
-_Describe what the data is, what it contains, where it is from, etc. Eventually this might be part of a methods section._
+
+**Data Source**:
+
+*Note: New diagnoses data are currently available through 2020. If 2021-2022 data are not available by the time the analysis needs to be completed, the analysis will be temporarily restricted to 2012-2020.*
+
++ HIV New Diagnoses: [AIDSVu](https://aidsvu.org/) [@Sullivan2020] 
+    
+**Analysis**:
+
++ Rate (per 100,000) of new HIV diagnoses by age, gender, and race/ethnicity (national, regional)
++ Rate ratios for new HIV diagnoses by age, gender, and race/ethnicity (national, regional)
++ Estimated annual percent change (EAPC) for incidence
+  - Calculated using [Joinpoint Regression Software (R-Callable Command-Line Version 4.9.0.0)](https://surveillance.cancer.gov/help/joinpoint/tech-help/citation)
++ Other modeling TBD based on course modules  
 
 ## Questions/Hypotheses to be addressed
 _State the research questions you plan to answer with this analysis._
 
-To cite other work (important everywhere, but likely happens first in introduction), make sure your references are in the bibtex file specified in the YAML header above (here `dataanalysis_template_references.bib`) and have the right bibtex key. Then you can include like this:
-
-Examples of reproducible research projects can for instance be found in []
 
 {{< pagebreak >}}
 
@@ -85,11 +64,16 @@ _Describe your methods. That should describe the data, the cleaning processes, a
 
 
 ## Data aquisition
-_As applicable, explain where and how you got the data. If you directly import the data from an online source, you can combine this section with the next._
+Data files were downloaded from [AIDSVu](https://aidsvu.org/) and placed in the `data/raw_data/AIDSVu` subfolder. The new diagnosis files consist of one xlsx file per year for each level (national, regional, etc.). 
 
 
 ## Data import and cleaning
-_Write code that reads in the file and cleans it so it's ready for analysis. Since this will be fairly long code for most datasets, it might be a good idea to have it in one or several R scripts. If that is the case, explain here briefly what kind of cleaning/processing you do, and provide more details and well documented code somewhere (e.g. as supplement in a paper). All materials, including files that contain code, should be commented well so everyone can follow along._
+The `processingcode.R` file includes the following steps:
++ Read in xlsx data files and combine all years for each level
++ Subset variables of interest and rename variables so all levels are consistent 
++ View/explore data
++ Calculate new rate ratio variables for subgroups 
++ Prepare combined national and regional file with all variables
 
 
 ## Statistical analysis
@@ -103,21 +87,104 @@ _Explain anything related to your statistical analyses._
 
 ## Exploratory/Descriptive analysis
 
-_Use a combination of text/tables/figures to explore and describe your data. Show the most important descriptive results here. Additional ones should go in the supplement. Even more can be in the R and Quarto files that are part of your project._
-
-
-@tbl-summarytable shows a summary of the data.
-
-Note the loading of the data providing a **relative** path using the `../../` notation. (Two dots means a folder up). You never want to specify an **absolute** path like `C:\ahandel\myproject\results\` because if you share this with someone, it won't work for them since they don't have that path. You can also use the `here` R package to create paths. See examples of that below.
+@tbl-natsummarytable shows a full summary of the National data. 
 
 ```{r}
-#| label: tbl-summarytable
-#| tbl-cap: "Data summary table."
+#| label: tbl-natsummarytable
+#| tbl-cap: "National data summary table."
 #| echo: FALSE
-#resulttable=readRDS("../../results/summarytable.rds")
-#knitr::kable(resulttable)
+alldata<-readRDS(here("data", "processed_data", "allnewdx.rds"))
+national<-alldata %>% filter(Geo %in% c("United States"))
+national %>% gt::gt() %>% 
+  gt::tab_header(title = "National Data") %>%
+  gt::tab_style(style = list(gt::cell_fill(color = "#7cb9e8"),
+                             gt::cell_text(weight = "bold")),
+                locations = gt::cells_body(columns = Year))
+```
+@fig-natplots shows exploratory plots for the national rates by subgroup.
+
+```{r}
+#| label: fig-natplots
+#| fig-cap: "National rates by subgroup"
+#| echo: FALSE
+national<-alldata %>% filter(Geo %in% c("United States"))
+natfig <- plot_ly(national, x = ~Year, y = ~Overall_Rate, name = "Overall", type="scatter", mode = "lines", line = list(width = 3, dash = "dash", color = "gray")) 
+natfig <- natfig %>% add_trace(y = ~Male_Rate, name = "Male", mode = 'lines', line = list(width = 3, dash = "solid", color = "blue"))
+natfig <- natfig %>% add_trace(y = ~Female_Rate, name = "Female", mode = 'lines', line = list(width = 3, dash = "solid", color = "green"))
+natfig %>% layout(title="National New Diagnosis Rate by Sex", legend=list(title=list(text='Sex')), 
+                  xaxis = list(title = 'Year'),
+                  yaxis = list(title = 'Rate per 100,000'))
+
+natfig <- plot_ly(national, x = ~Year, y = ~Overall_Rate, name = "Overall", type="scatter", mode = "lines", line = list(width = 3, dash = "dash", color = "gray")) 
+natfig <- natfig %>% add_trace(y = ~Black_Rate, name = "Black", mode = 'lines', line = list(width = 3, dash = "solid", color = "blue"))
+natfig <- natfig %>% add_trace(y = ~White_Rate, name = "White", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkgreen"))
+natfig <- natfig %>% add_trace(y = ~Hispanic_Rate, name = "Hispanic", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkred"))
+natfig <- natfig %>% add_trace(y = ~Asian_Rate, name = "Asian", mode = 'lines', line = list(width = 3, dash = "solid", color = "cornflowerblue"))
+natfig <- natfig %>% add_trace(y = ~AIAN_Rate, name = "AIAN", mode = 'lines', line = list(width = 3, dash = "solid", color = "brown1"))
+natfig <- natfig %>% add_trace(y = ~MultRace_Rate, name = "Multiracial", mode = 'lines', line = list(width = 3, dash = "solid", color = "purple"))
+natfig <- natfig %>% add_trace(y = ~NHPI_Rate, name = "NHPI", mode = 'lines', line = list(width = 3, dash = "solid", color = "magenta"))
+natfig %>% layout(title="National New Diagnosis Rate by Race/Ethnicity", legend=list(title=list(text='Race/Ethnicity')), 
+                  xaxis = list(title = 'Year'),
+                  yaxis = list(title = 'Rate per 100,000'))
+
+natfig <- plot_ly(national, x = ~Year, y = ~Overall_Rate, name = "Overall", type="scatter", mode = "lines", line = list(width = 3, dash = "dash", color = "gray")) 
+natfig <- natfig %>% add_trace(y = ~Age13t24_Rate, name = "Age 13-24", mode = 'lines', line = list(width = 3, dash = "solid", color = "blue"))
+natfig <- natfig %>% add_trace(y = ~Age25t34_Rate, name = "Age 25-34", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkgreen"))
+natfig <- natfig %>% add_trace(y = ~Age35t44_Rate, name = "Age 35-44e", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkred"))
+natfig <- natfig %>% add_trace(y = ~Age45t54_Rate, name = "Age 45-54", mode = 'lines', line = list(width = 3, dash = "solid", color = "cornflowerblue"))
+natfig <- natfig %>% add_trace(y = ~Age55p_Rate, name = "Age 55+", mode = 'lines', line = list(width = 3, dash = "solid", color = "orange"))
+natfig %>% layout(title="National New Diagnosis Rate by Age", legend=list(title=list(text='Age')), 
+                  xaxis = list(title = 'Year'),
+                  yaxis = list(title = 'Rate per 100,000'))
 ```
 
+@tbl-natratios shows a summary of selected rate ratios for race/ethnicity and sex.
+
+```{r}
+#| label: tbl-natratios
+#| tbl-cap: "National rate ratios by select subgroups"
+#| echo: FALSE
+national<-alldata %>% filter(Geo %in% c("United States"))
+national_sub <- national %>% dplyr::select("Year", "Black_Rate", "White_Rate", "Hispanic_Rate", "black_white_rateratio", "hispanic_white_rateratio", "Male_Rate", "Female_Rate", "female_male_rateratio")
+national_sub %>% gt::gt() %>% 
+  gt::tab_header(title = "Rate Ratios") %>%
+  gt::tab_style(style = list(gt::cell_fill(color = "#7cb9e8"),
+                             gt::cell_text(weight = "bold")),
+                locations = gt::cells_body(columns = Year))%>%
+  gt::tab_style(style = list(gt::cell_fill(color = "#F1EB9C"),
+                             gt::cell_text(weight = "bold")), 
+                locations = gt::cells_body(columns = c(black_white_rateratio,hispanic_white_rateratio,female_male_rateratio)))
+```
+
+@tbl-regsummarytable shows a full summary of the Regional data. 
+
+```{r}
+#| label: tbl-regsummarytable
+#| tbl-cap: "Regional data summary table."
+#| echo: FALSE
+alldata<-readRDS(here("data", "processed_data", "allnewdx.rds"))
+regional<-alldata %>% filter(Geo %in% c("Northeast", "Midwest", "South", "West"))
+regional %>% gt::gt() %>% 
+  gt::tab_header(title = "Regional Data") %>%
+  gt::tab_style(style = list(gt::cell_fill(color = "#7cb9e8"),
+                             gt::cell_text(weight = "bold")),
+                locations = gt::cells_body(columns = Year))
+```
+
+@fig-regplots shows an exploratory plot for regional overall new diagnosis rates with female-male rate ratios. 
+
+```{r}
+#| label: fig-regplots
+#| tbl-cap: "Regional plots"
+#| echo: FALSE
+alldata<-readRDS(here("data", "processed_data", "allnewdx.rds"))
+regional<-alldata %>% filter(Geo %in% c("Northeast", "Midwest", "South", "West"))
+ggplot(regional, aes(x=Year, y=log(Overall_Rate), size=log(female_male_rateratio), color=Geo)) +
+    geom_point(alpha=0.7) + scale_x_continuous(breaks=c(2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020)) +
+  ggtitle("Regional New Diagnosis Rates with Female-Male Rate Ratios") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  xlab("Year") + ylab("Log of Overall NewDx Rate")
+```
 
 
 ## Basic statistical analysis

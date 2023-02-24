@@ -16,124 +16,112 @@ library(dplyr) #for data processing/cleaning
 library(tidyr) #for data processing/cleaning
 library(skimr) #for nice visualization of data 
 library(here) #to set paths
+library(plotly)
+library(gt)
 
 ## ---- loaddata --------
 #path to data
 #note the use of the here() package and not absolute paths
-data_location <- here::here("data","raw_data","exampledata.xlsx")
+nat_newdx_files <- list.files(path = (here("data","raw_data", "AIDSVu", "National", "NewDx")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows  
+reg_newdx_files <- list.files(path = (here("data","raw_data", "AIDSVu", "Region", "NewDx")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
+#st_newdx_files <- list.files(path = (here("data","raw_data", "AIDSVu", "State", "NewDx")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
 
-#load data. 
-#note that for functions that come from specific packages (instead of base R)
-# I often specify both package and function like so
-#package::function() that's not required one could just call the function
-#specifying the package makes it clearer where the function "lives",
-#but it adds typing. You can do it either way.
-rawdata <- readxl::read_excel(data_location)
+#nat_pnr_files <- list.files(path = (here("data","raw_data", "AIDSVu", "National", "PNR")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
+#nat_prep_files <- list.files(path = (here("data","raw_data", "AIDSVu", "National", "PrEP")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
+#reg_pnr_files <- list.files(path = (here("data","raw_data", "AIDSVu", "Region", "PNR")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
+#reg_prep_files <- list.files(path = (here("data","raw_data", "AIDSVu", "Region", "PrEP")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
+#st_pnr_files <- list.files(path = (here("data","raw_data", "AIDSVu", "State", "PNR")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
+#st_prep_files <- list.files(path = (here("data","raw_data", "AIDSVu", "State", "PrEP")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
+
+## ---- combinedata --------
+#national<-Reduce(function(x,y) merge(x,y,by="Year",all=T),
+#       list(nat_newdx_files, nat_pnr_files, nat_prep_files))
+#region<-Reduce(function(x,y) merge(x,y,by=c("Year", "Region"),all=T),
+#                 list(reg_newdx_files, reg_pnr_files, reg_prep_files))
+#state<-Reduce(function(x,y) merge(x,y,by=c("Year", "GEO ID"),all=T),
+#               list(st_newdx_files, st_pnr_files, st_prep_files))
 
 ## ---- exploredata --------
-#take a look at the data
-dplyr::glimpse(rawdata)
 
-#another way to look at the data
-summary(rawdata)
+# national
+names(nat_newdx_files)
+national_sub_newdx <- nat_newdx_files %>% dplyr::select("Year", "Geography", "New Diagnoses National Rate",
+                        "New Diagnoses Male Rate", "New Diagnoses Female Rate",                                                                   
+                        "New Diagnoses Black Rate", "New Diagnoses White Rate", "New Diagnoses Hispanic Rate", "New Diagnoses Asian Rate",                                                                    
+                        "New Diagnoses American Indian/Alaska Native Rate", "New Diagnoses Multiple Race Rate", "New Diagnoses Native Hawaiian/Other Pacific Islander Rate",                                   
+                        "New Diagnoses Age 13-24 Rate", "New Diagnoses Age 25-34 Rate", "New Diagnoses Age 35-44 Rate", "New Diagnoses Age 45-54 Rate", "New Diagnoses Age 55+ Rate")
+names(national_sub_newdx) <- c("Year", "Geo", "Overall_Rate","Male_Rate", "Female_Rate", "Black_Rate", "White_Rate", "Hispanic_Rate", "Asian_Rate",                                                                    
+                            "AIAN_Rate", "MultRace_Rate", "NHPI_Rate", "Age13t24_Rate", "Age25t34_Rate", "Age35t44_Rate", "Age45t54_Rate", "Age55p_Rate")
 
-#yet another way to get an idea of the data
-head(rawdata)
+dplyr::glimpse(national_sub_newdx)
+summary(national_sub_newdx)
+head(national_sub_newdx)
+skimr::skim(national_sub_newdx)
 
-#this is a nice way to look at data
-skimr::skim(rawdata)
+# regional
+names(reg_newdx_files)
+regional_sub_newdx <- reg_newdx_files %>% dplyr::select("Year", "Region", "Regional Rate", "Male Rate", "Female Rate", "Black Rate", "White Rate", "Hispanic Rate", "Asian Rate",
+                                                        "American Indian/Alaska Native Rate", "Multiple Races Rate", "Native Hawaiian/Other Pacific Islander Rate",                                   
+                                                        "Age 13-24 Rate", "Age 25-34 Rate", "Age 35-44 Rate", "Age 45-54 Rate", "Age 55+ Rate") 
+names(regional_sub_newdx) <- c("Year", "Geo", "Overall_Rate","Male_Rate", "Female_Rate", "Black_Rate", "White_Rate", "Hispanic_Rate", "Asian_Rate",                                                                    
+                               "AIAN_Rate", "MultRace_Rate", "NHPI_Rate", "Age13t24_Rate", "Age25t34_Rate", "Age35t44_Rate", "Age45t54_Rate", "Age55p_Rate")
 
-# looks like we have the following data
-# height (seems like it's in centimeters) 
-# weight (seems to be in kilogram)
-# Sex
-
+dplyr::glimpse(regional_sub_newdx)
+summary(regional_sub_newdx)
+head(regional_sub_newdx)
+skimr::skim(regional_sub_newdx)
 
 
 ## ---- cleandata1 --------
-# Inspecting the data, we find some problems that need addressing:
-# First, there is an entry for height which says "sixty" instead of a number. 
-# Does that mean it should be a numeric 60? It somehow doesn't make
-# sense since the weight is 60kg, which can't happen for a 60cm person (a baby)
-# Since we don't know how to fix this, we might decide to remove the person.
-# This "sixty" entry also turned all Height entries into characters instead of numeric.
-# That conversion to character also means that our summary function isn't very meaningful.
-# So let's fix that first.
 
-d1 <- rawdata %>% dplyr::filter( Height != "sixty" ) %>% 
-                  dplyr::mutate(Height = as.numeric(Height))
+# national
+# create rate ratios and round 
+# sex
+national_sub_newdx$female_male_rateratio<-round(national_sub_newdx$Female_Rate/national_sub_newdx$Male_Rate, digits=1)
+# race/ethnicity
+national_sub_newdx$black_white_rateratio<-round(national_sub_newdx$Black_Rate/national_sub_newdx$White_Rate, digits=1)
+national_sub_newdx$hispanic_white_rateratio<-round(national_sub_newdx$Hispanic_Rate/national_sub_newdx$White_Rate, digits=1)
+national_sub_newdx$asian_white_rateratio<-round(national_sub_newdx$Asian_Rate/national_sub_newdx$White_Rate, digits=1)
+national_sub_newdx$aian_white_rateratio<-round(national_sub_newdx$AIAN_Rate/national_sub_newdx$White_Rate, digits=1)
+national_sub_newdx$multrace_white_rateratio<-round(national_sub_newdx$MultRace_Rate/national_sub_newdx$White_Rate, digits=1)
+national_sub_newdx$nhpi_white_rateratio<-round(national_sub_newdx$NHPI_Rate/national_sub_newdx$White_Rate, digits=1)
+# age
+national_sub_newdx$age13t24_age35t44_rateratio<-round(national_sub_newdx$Age13t24_Rate/national_sub_newdx$Age35t44_Rate, digits=1)
+national_sub_newdx$age25t34_age35t44_rateratio<-round(national_sub_newdx$Age25t34_Rate/national_sub_newdx$Age35t44_Rate, digits=1)
+national_sub_newdx$age45t54_age35t44_rateratio<-round(national_sub_newdx$Age45t54_Rate/national_sub_newdx$Age35t44_Rate, digits=1)
+national_sub_newdx$age45t54_age55p_rateratio<-round(national_sub_newdx$Age55p_Rate/national_sub_newdx$Age35t44_Rate, digits=1)
 
+# regional
+# create rate ratios and round 
+# sex
+regional_sub_newdx$female_male_rateratio<-round(regional_sub_newdx$Female_Rate/regional_sub_newdx$Male_Rate, digits=1)
+# race/ethnicity
+regional_sub_newdx$black_white_rateratio<-round(regional_sub_newdx$Black_Rate/regional_sub_newdx$White_Rate, digits=1)
+regional_sub_newdx$hispanic_white_rateratio<-round(regional_sub_newdx$Hispanic_Rate/regional_sub_newdx$White_Rate, digits=1)
+regional_sub_newdx$asian_white_rateratio<-round(regional_sub_newdx$Asian_Rate/regional_sub_newdx$White_Rate, digits=1)
+regional_sub_newdx$aian_white_rateratio<-round(regional_sub_newdx$AIAN_Rate/regional_sub_newdx$White_Rate, digits=1)
+regional_sub_newdx$multrace_white_rateratio<-round(regional_sub_newdx$MultRace_Rate/regional_sub_newdx$White_Rate, digits=1)
+regional_sub_newdx$nhpi_white_rateratio<-round(regional_sub_newdx$NHPI_Rate/regional_sub_newdx$White_Rate, digits=1)
+# age
+regional_sub_newdx$age13t24_age35t44_rateratio<-round(regional_sub_newdx$Age13t24_Rate/regional_sub_newdx$Age35t44_Rate, digits=1)
+regional_sub_newdx$age25t34_age35t44_rateratio<-round(regional_sub_newdx$Age25t34_Rate/regional_sub_newdx$Age35t44_Rate, digits=1)
+regional_sub_newdx$age45t54_age35t44_rateratio<-round(regional_sub_newdx$Age45t54_Rate/regional_sub_newdx$Age35t44_Rate, digits=1)
+regional_sub_newdx$age45t54_age55p_rateratio<-round(regional_sub_newdx$Age55p_Rate/regional_sub_newdx$Age35t44_Rate, digits=1)
 
-# look at partially fixed data again
-skimr::skim(d1)
-hist(d1$Height)
-
-
-## ---- cleandata2 --------
-# Now we see that there is one person with a height of 6. 
-# that could be a typo, or someone mistakenly entered their height in feet.
-# Since we unfortunately don't know, we might need to remove this person, which we'll do here.
-d2 <- d1 %>% dplyr::filter(Height != 6)
-
-#height values seem ok now
-skimr::skim(d2)
-
-
-## ---- cleandata3 --------
-# now let's look at weight
-# there is a person with weight of 7000, which is impossible,
-# and one person with missing weight.
-# to be able to analyze the data, we'll remove those individuals as well
-d3 <- d2 %>%  dplyr::filter(Weight != 7000) %>% tidyr::drop_na()
-skimr::skim(d3)
-
-
-## ---- cleandata4 --------
-# last problems is that Sex should be a categorical/factor variable
-# we can do that with simple base R code to mix things up
-d3$Sex <- as.factor(d3$Sex)  
-skimr::skim(d3)
-
-
-## ---- cleandata5 --------
-#now we see that there is another NA, but it's not "NA" from R 
-#instead it was loaded as character and is now considered as a category
-#well proceed here by removing that individual
-#since this keeps an empty category for Sex, I'm also using droplevels() to get rid of it
-d4 <- d3 %>% dplyr::filter(Sex != "NA") %>% droplevels()
-skimr::skim(d4)
-
+#regional_northeast_sub_newdx <- regional_sub_newdx %>% filter(Geo %in% c("Northeast"))
+#regional_midwest_sub_newdx <- regional_sub_newdx %>% filter(Geo %in% c("Midwest"))
+#regional_south_sub_newdx <- regional_sub_newdx %>% filter(Geo %in% c("South"))
+#regional_west_sub_newdx <- regional_sub_newdx %>% filter(Geo %in% c("West"))
 
 
 ## ---- savedata --------
-# all done, data is clean now. 
-# Let's assign at the end to some final variable
-# makes it easier to add steps above
-processeddata <- d4
-# location to save file
-save_data_location <- here::here("data","processed_data","processeddata.rds")
-saveRDS(processeddata, file = save_data_location)
-
+allnewdx<-rbind(national_sub_newdx,regional_sub_newdx)
+save_data_location <- here::here("data","processed_data","allnewdx.rds")
+saveRDS(allnewdx, file = save_data_location)
 
 
 ## ---- notes --------
-# anything you don't want loaded into the Quarto file but 
-# keep in the R file, just give it its own label and then don't include that label
-# in the Quarto file
 
-# Dealing with NA or "bad" data:
-# removing anyone who had "faulty" or missing data is one approach.
-# it's often not the best. based on your question and your analysis approach,
-# you might want to do cleaning differently (e.g. keep individuals with some missing information)
-
-# Saving data as RDS:
-# I suggest you save your processed and cleaned data as RDS or RDA/Rdata files. 
-# This preserves coding like factors, characters, numeric, etc. 
-# If you save as CSV, that information would get lost.
-# However, CSV is better for sharing with others since it's plain text. 
-# If you do CSV, you might want to write down somewhere what each variable is.
-# See here for some suggestions on how to store your processed data:
-# http://www.sthda.com/english/wiki/saving-data-into-r-data-format-rds-and-rdata
 
 
 

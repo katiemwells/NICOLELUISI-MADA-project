@@ -43,6 +43,14 @@ but it adds typing. You can do it either way.
 ```
 
 
+
+# Combine data
+
+```{r, combinedata}
+```
+
+
+
 # Explore data
 
 Several ways of looking at the data
