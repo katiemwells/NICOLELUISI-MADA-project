@@ -1,4 +1,22 @@
-This folder contains results produced by the code, such as figures and tables.
+About the Files:
 
-Depending on the size and type of your project, you can either place it all in a single folder or create sub-folders. For instance you could create a folder for figures, another for tables. Or you could create a sub-folder for dataset 1, another for dataset 2. Or you could have a subfolder for exploratory analysis, another for final analysis. The options are endless, choose whatever makes sense for your project. For this template, there is just a a single folder, but having sub-folders is often a good idea.
+`US_rates_bysex.png` : This png file contains a plot of all US new diagnosis rates by sex.
+`US_rates_byage.png` : This png file contains a plot of all US new diagnosis rates by age.
+`US_rates_byrace.png` : This png file contains a plot of all US new diagnosis rates by race/ethnicity.
 
+`all_us_rates.rds` : This RDS file contains all the National new diagnosis rate data by group.
+`aapc_all_results.rds` : This RDS file contains all the AAPC results from Joinpoint for all variables and stratifications. Includes columns for stratification type, geographic area, AAPC, AAPC confidence limits, and p-value.
+`apc_all_results.rds` : This RDS file contains all the APC results from Joinpoint for all variables and stratifications. Includes columns for stratification type, geographic area, model selected, segment, segment start and end, APC, APC confidence limits, significance flag, test statistic, and p-value.
+
+`nat_diff_bwh` : This png file contains rate difference comparisons by race/ethnicity (Black and Hispanic vs White).
+`raceBWH_joinpoints_allUS.png` : This png file contains a plot that compares all US new diagnosis rate joinpoints for Black, White, and Hispanic. 
+`racerates_allUS.png` : This png file contains a plot of new diagnosis rates by Race/Ethnicity and region.
+`racerates_region.png` : This png file contains a plot of new diagnosis rates by Race/Ethnicity for all US.
+`raceratio_byregion.png` : This png file contains a plot of new diagnosis rate ratios by race/ethnicity for all US by region (White=ref).
+
+
+About the Folders:
+
+`joinpoint_rcallable_result_tables` : This sub-folder contains RDS files with results from R-callable Joinpoint analyses. They are not not used anywhere else, only kept for reference after switching to the desktop program.
+
+`joinpoint_desktop_plots_for_ref` : This sub-folder contains plots created with the desktop version of the Joinpoint software. They are not used anywhere, just keeping for reference and comparison with other analyses. 

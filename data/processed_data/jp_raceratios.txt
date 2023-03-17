@@ -1,0 +1,391 @@
+"RaceRatio"	"Geo"	"Year"	"Rate"
+"AIAN-White"	"Midwest"	2008	1.5
+"AIAN-White"	"Midwest"	2009	1
+"AIAN-White"	"Midwest"	2010	1.5
+"AIAN-White"	"Midwest"	2011	1
+"AIAN-White"	"Midwest"	2012	1.8
+"AIAN-White"	"Midwest"	2013	1.5
+"AIAN-White"	"Midwest"	2014	1.5
+"AIAN-White"	"Midwest"	2015	1.2
+"AIAN-White"	"Midwest"	2016	1.2
+"AIAN-White"	"Midwest"	2017	1.5
+"AIAN-White"	"Midwest"	2018	1.8
+"AIAN-White"	"Midwest"	2019	2.2
+"AIAN-White"	"Midwest"	2020	3.3
+"AIAN-White"	"Northeast"	2008	0.3
+"AIAN-White"	"Northeast"	2009	0.8
+"AIAN-White"	"Northeast"	2010	0.7
+"AIAN-White"	"Northeast"	2011	0
+"AIAN-White"	"Northeast"	2012	1.4
+"AIAN-White"	"Northeast"	2013	0.6
+"AIAN-White"	"Northeast"	2014	1.4
+"AIAN-White"	"Northeast"	2015	1.5
+"AIAN-White"	"Northeast"	2016	2
+"AIAN-White"	"Northeast"	2017	1
+"AIAN-White"	"Northeast"	2018	1.5
+"AIAN-White"	"Northeast"	2019	1.3
+"AIAN-White"	"Northeast"	2020	2
+"AIAN-White"	"South"	2008	0.6
+"AIAN-White"	"South"	2009	0.6
+"AIAN-White"	"South"	2010	0.8
+"AIAN-White"	"South"	2011	0.8
+"AIAN-White"	"South"	2012	0.8
+"AIAN-White"	"South"	2013	0.7
+"AIAN-White"	"South"	2014	0.9
+"AIAN-White"	"South"	2015	1.1
+"AIAN-White"	"South"	2016	1.1
+"AIAN-White"	"South"	2017	1
+"AIAN-White"	"South"	2018	0.9
+"AIAN-White"	"South"	2019	1.3
+"AIAN-White"	"South"	2020	1.2
+"AIAN-White"	"United States"	2008	1
+"AIAN-White"	"United States"	2009	1.1
+"AIAN-White"	"United States"	2010	1.2
+"AIAN-White"	"United States"	2011	1.1
+"AIAN-White"	"United States"	2012	1.4
+"AIAN-White"	"United States"	2013	1.2
+"AIAN-White"	"United States"	2014	1.5
+"AIAN-White"	"United States"	2015	1.4
+"AIAN-White"	"United States"	2016	1.9
+"AIAN-White"	"United States"	2017	1.8
+"AIAN-White"	"United States"	2018	1.6
+"AIAN-White"	"United States"	2019	1.9
+"AIAN-White"	"United States"	2020	2.2
+"AIAN-White"	"West"	2008	1.1
+"AIAN-White"	"West"	2009	1.1
+"AIAN-White"	"West"	2010	1.2
+"AIAN-White"	"West"	2011	1.2
+"AIAN-White"	"West"	2012	1.4
+"AIAN-White"	"West"	2013	1.6
+"AIAN-White"	"West"	2014	1.6
+"AIAN-White"	"West"	2015	1.6
+"AIAN-White"	"West"	2016	2.3
+"AIAN-White"	"West"	2017	2.1
+"AIAN-White"	"West"	2018	1.7
+"AIAN-White"	"West"	2019	2
+"AIAN-White"	"West"	2020	2.2
+"Asian-White"	"Midwest"	2008	1.2
+"Asian-White"	"Midwest"	2009	1.2
+"Asian-White"	"Midwest"	2010	1
+"Asian-White"	"Midwest"	2011	1.2
+"Asian-White"	"Midwest"	2012	0.8
+"Asian-White"	"Midwest"	2013	1.2
+"Asian-White"	"Midwest"	2014	1.2
+"Asian-White"	"Midwest"	2015	1.5
+"Asian-White"	"Midwest"	2016	1.2
+"Asian-White"	"Midwest"	2017	1.2
+"Asian-White"	"Midwest"	2018	1
+"Asian-White"	"Midwest"	2019	1
+"Asian-White"	"Midwest"	2020	1.3
+"Asian-White"	"Northeast"	2008	1
+"Asian-White"	"Northeast"	2009	1.2
+"Asian-White"	"Northeast"	2010	0.7
+"Asian-White"	"Northeast"	2011	1
+"Asian-White"	"Northeast"	2012	1
+"Asian-White"	"Northeast"	2013	0.8
+"Asian-White"	"Northeast"	2014	1
+"Asian-White"	"Northeast"	2015	1.2
+"Asian-White"	"Northeast"	2016	1.5
+"Asian-White"	"Northeast"	2017	1.2
+"Asian-White"	"Northeast"	2018	1.5
+"Asian-White"	"Northeast"	2019	1.3
+"Asian-White"	"Northeast"	2020	1
+"Asian-White"	"South"	2008	0.7
+"Asian-White"	"South"	2009	0.6
+"Asian-White"	"South"	2010	0.6
+"Asian-White"	"South"	2011	0.8
+"Asian-White"	"South"	2012	0.8
+"Asian-White"	"South"	2013	0.9
+"Asian-White"	"South"	2014	0.9
+"Asian-White"	"South"	2015	1
+"Asian-White"	"South"	2016	0.9
+"Asian-White"	"South"	2017	0.9
+"Asian-White"	"South"	2018	0.9
+"Asian-White"	"South"	2019	0.7
+"Asian-White"	"South"	2020	0.7
+"Asian-White"	"United States"	2008	0.8
+"Asian-White"	"United States"	2009	0.8
+"Asian-White"	"United States"	2010	0.8
+"Asian-White"	"United States"	2011	0.9
+"Asian-White"	"United States"	2012	0.9
+"Asian-White"	"United States"	2013	0.9
+"Asian-White"	"United States"	2014	1
+"Asian-White"	"United States"	2015	1.1
+"Asian-White"	"United States"	2016	1.1
+"Asian-White"	"United States"	2017	1.1
+"Asian-White"	"United States"	2018	1
+"Asian-White"	"United States"	2019	0.8
+"Asian-White"	"United States"	2020	0.8
+"Asian-White"	"West"	2008	0.6
+"Asian-White"	"West"	2009	0.7
+"Asian-White"	"West"	2010	0.7
+"Asian-White"	"West"	2011	0.8
+"Asian-White"	"West"	2012	0.8
+"Asian-White"	"West"	2013	0.9
+"Asian-White"	"West"	2014	0.9
+"Asian-White"	"West"	2015	1
+"Asian-White"	"West"	2016	0.9
+"Asian-White"	"West"	2017	1
+"Asian-White"	"West"	2018	0.7
+"Asian-White"	"West"	2019	0.8
+"Asian-White"	"West"	2020	0.7
+"Black-White"	"Midwest"	2008	12
+"Black-White"	"Midwest"	2009	12
+"Black-White"	"Midwest"	2010	11.5
+"Black-White"	"Midwest"	2011	11
+"Black-White"	"Midwest"	2012	11
+"Black-White"	"Midwest"	2013	11
+"Black-White"	"Midwest"	2014	10.5
+"Black-White"	"Midwest"	2015	10.5
+"Black-White"	"Midwest"	2016	10.8
+"Black-White"	"Midwest"	2017	10.5
+"Black-White"	"Midwest"	2018	10
+"Black-White"	"Midwest"	2019	9.8
+"Black-White"	"Midwest"	2020	11.3
+"Black-White"	"Northeast"	2008	12.7
+"Black-White"	"Northeast"	2009	13.4
+"Black-White"	"Northeast"	2010	10.5
+"Black-White"	"Northeast"	2011	11.8
+"Black-White"	"Northeast"	2012	11.4
+"Black-White"	"Northeast"	2013	10
+"Black-White"	"Northeast"	2014	10.4
+"Black-White"	"Northeast"	2015	12
+"Black-White"	"Northeast"	2016	11.2
+"Black-White"	"Northeast"	2017	11.2
+"Black-White"	"Northeast"	2018	10.2
+"Black-White"	"Northeast"	2019	13.3
+"Black-White"	"Northeast"	2020	10.7
+"Black-White"	"South"	2008	8.9
+"Black-White"	"South"	2009	9.2
+"Black-White"	"South"	2010	8.6
+"Black-White"	"South"	2011	8.1
+"Black-White"	"South"	2012	7.5
+"Black-White"	"South"	2013	8.1
+"Black-White"	"South"	2014	8.1
+"Black-White"	"South"	2015	8.1
+"Black-White"	"South"	2016	7.9
+"Black-White"	"South"	2017	7.6
+"Black-White"	"South"	2018	7.3
+"Black-White"	"South"	2019	7.1
+"Black-White"	"South"	2020	6.7
+"Black-White"	"United States"	2008	9.7
+"Black-White"	"United States"	2009	9.7
+"Black-White"	"United States"	2010	9.4
+"Black-White"	"United States"	2011	9.3
+"Black-White"	"United States"	2012	8.7
+"Black-White"	"United States"	2013	8.7
+"Black-White"	"United States"	2014	8.7
+"Black-White"	"United States"	2015	8.8
+"Black-White"	"United States"	2016	8.7
+"Black-White"	"United States"	2017	8.7
+"Black-White"	"United States"	2018	8.5
+"Black-White"	"United States"	2019	8.6
+"Black-White"	"United States"	2020	8.1
+"Black-White"	"West"	2008	5.4
+"Black-White"	"West"	2009	5.4
+"Black-White"	"West"	2010	5.3
+"Black-White"	"West"	2011	5.6
+"Black-White"	"West"	2012	5.2
+"Black-White"	"West"	2013	5.7
+"Black-White"	"West"	2014	5.4
+"Black-White"	"West"	2015	6.3
+"Black-White"	"West"	2016	6.6
+"Black-White"	"West"	2017	6
+"Black-White"	"West"	2018	6.3
+"Black-White"	"West"	2019	7
+"Black-White"	"West"	2020	5.8
+"Hispanic-White"	"Midwest"	2008	5.5
+"Hispanic-White"	"Midwest"	2009	5.2
+"Hispanic-White"	"Midwest"	2010	4.8
+"Hispanic-White"	"Midwest"	2011	4.8
+"Hispanic-White"	"Midwest"	2012	4.8
+"Hispanic-White"	"Midwest"	2013	4.8
+"Hispanic-White"	"Midwest"	2014	4.8
+"Hispanic-White"	"Midwest"	2015	4.2
+"Hispanic-White"	"Midwest"	2016	4.2
+"Hispanic-White"	"Midwest"	2017	4.2
+"Hispanic-White"	"Midwest"	2018	4
+"Hispanic-White"	"Midwest"	2019	4
+"Hispanic-White"	"Midwest"	2020	4
+"Hispanic-White"	"Northeast"	2008	8.5
+"Hispanic-White"	"Northeast"	2009	9.8
+"Hispanic-White"	"Northeast"	2010	7
+"Hispanic-White"	"Northeast"	2011	7.6
+"Hispanic-White"	"Northeast"	2012	7.4
+"Hispanic-White"	"Northeast"	2013	7
+"Hispanic-White"	"Northeast"	2014	6.8
+"Hispanic-White"	"Northeast"	2015	8
+"Hispanic-White"	"Northeast"	2016	7.8
+"Hispanic-White"	"Northeast"	2017	7.5
+"Hispanic-White"	"Northeast"	2018	6.8
+"Hispanic-White"	"Northeast"	2019	8.7
+"Hispanic-White"	"Northeast"	2020	6.7
+"Hispanic-White"	"South"	2008	3.3
+"Hispanic-White"	"South"	2009	3.5
+"Hispanic-White"	"South"	2010	3.2
+"Hispanic-White"	"South"	2011	3.2
+"Hispanic-White"	"South"	2012	3.1
+"Hispanic-White"	"South"	2013	3.4
+"Hispanic-White"	"South"	2014	3.6
+"Hispanic-White"	"South"	2015	3.7
+"Hispanic-White"	"South"	2016	3.7
+"Hispanic-White"	"South"	2017	3.6
+"Hispanic-White"	"South"	2018	3.6
+"Hispanic-White"	"South"	2019	3.4
+"Hispanic-White"	"South"	2020	3.2
+"Hispanic-White"	"United States"	2008	4.3
+"Hispanic-White"	"United States"	2009	4.3
+"Hispanic-White"	"United States"	2010	4.1
+"Hispanic-White"	"United States"	2011	4
+"Hispanic-White"	"United States"	2012	4
+"Hispanic-White"	"United States"	2013	4
+"Hispanic-White"	"United States"	2014	4.1
+"Hispanic-White"	"United States"	2015	4.1
+"Hispanic-White"	"United States"	2016	4.2
+"Hispanic-White"	"United States"	2017	4.1
+"Hispanic-White"	"United States"	2018	4.1
+"Hispanic-White"	"United States"	2019	4.1
+"Hispanic-White"	"United States"	2020	3.8
+"Hispanic-White"	"West"	2008	2.1
+"Hispanic-White"	"West"	2009	2.1
+"Hispanic-White"	"West"	2010	2
+"Hispanic-White"	"West"	2011	2.2
+"Hispanic-White"	"West"	2012	2.2
+"Hispanic-White"	"West"	2013	2.4
+"Hispanic-White"	"West"	2014	2.2
+"Hispanic-White"	"West"	2015	2.6
+"Hispanic-White"	"West"	2016	2.7
+"Hispanic-White"	"West"	2017	2.6
+"Hispanic-White"	"West"	2018	2.6
+"Hispanic-White"	"West"	2019	3
+"Hispanic-White"	"West"	2020	2.5
+"Multi-White"	"Midwest"	2008	16
+"Multi-White"	"Midwest"	2009	17.2
+"Multi-White"	"Midwest"	2010	12.8
+"Multi-White"	"Midwest"	2011	11.8
+"Multi-White"	"Midwest"	2012	11.8
+"Multi-White"	"Midwest"	2013	9.8
+"Multi-White"	"Midwest"	2014	8
+"Multi-White"	"Midwest"	2015	7.2
+"Multi-White"	"Midwest"	2016	7.2
+"Multi-White"	"Midwest"	2017	6.5
+"Multi-White"	"Midwest"	2018	5.2
+"Multi-White"	"Midwest"	2019	4.2
+"Multi-White"	"Midwest"	2020	4.3
+"Multi-White"	"Northeast"	2008	27.3
+"Multi-White"	"Northeast"	2009	30.2
+"Multi-White"	"Northeast"	2010	16.8
+"Multi-White"	"Northeast"	2011	18.4
+"Multi-White"	"Northeast"	2012	17.8
+"Multi-White"	"Northeast"	2013	18.2
+"Multi-White"	"Northeast"	2014	14.2
+"Multi-White"	"Northeast"	2015	15.8
+"Multi-White"	"Northeast"	2016	13
+"Multi-White"	"Northeast"	2017	10.8
+"Multi-White"	"Northeast"	2018	8.8
+"Multi-White"	"Northeast"	2019	11.7
+"Multi-White"	"Northeast"	2020	6.7
+"Multi-White"	"South"	2008	16.1
+"Multi-White"	"South"	2009	15.8
+"Multi-White"	"South"	2010	12.6
+"Multi-White"	"South"	2011	11.1
+"Multi-White"	"South"	2012	10.2
+"Multi-White"	"South"	2013	10.7
+"Multi-White"	"South"	2014	10
+"Multi-White"	"South"	2015	8.4
+"Multi-White"	"South"	2016	7.4
+"Multi-White"	"South"	2017	6.3
+"Multi-White"	"South"	2018	5.4
+"Multi-White"	"South"	2019	4.9
+"Multi-White"	"South"	2020	4
+"Multi-White"	"United States"	2008	12.5
+"Multi-White"	"United States"	2009	12.3
+"Multi-White"	"United States"	2010	10
+"Multi-White"	"United States"	2011	9.2
+"Multi-White"	"United States"	2012	8.8
+"Multi-White"	"United States"	2013	8.7
+"Multi-White"	"United States"	2014	7.6
+"Multi-White"	"United States"	2015	6.8
+"Multi-White"	"United States"	2016	6.2
+"Multi-White"	"United States"	2017	5.4
+"Multi-White"	"United States"	2018	4.7
+"Multi-White"	"United States"	2019	4.3
+"Multi-White"	"United States"	2020	3.4
+"Multi-White"	"West"	2008	3.4
+"Multi-White"	"West"	2009	3.6
+"Multi-White"	"West"	2010	3.4
+"Multi-White"	"West"	2011	3.1
+"Multi-White"	"West"	2012	3
+"Multi-White"	"West"	2013	3.3
+"Multi-White"	"West"	2014	2.6
+"Multi-White"	"West"	2015	3
+"Multi-White"	"West"	2016	2.6
+"Multi-White"	"West"	2017	2.1
+"Multi-White"	"West"	2018	2
+"Multi-White"	"West"	2019	1.7
+"Multi-White"	"West"	2020	1.3
+"NHPI-White"	"Midwest"	2008	2.5
+"NHPI-White"	"Midwest"	2009	2.5
+"NHPI-White"	"Midwest"	2010	1.2
+"NHPI-White"	"Midwest"	2011	0
+"NHPI-White"	"Midwest"	2012	2.2
+"NHPI-White"	"Midwest"	2013	0
+"NHPI-White"	"Midwest"	2014	1
+"NHPI-White"	"Midwest"	2015	3
+"NHPI-White"	"Midwest"	2016	2
+"NHPI-White"	"Midwest"	2017	2
+"NHPI-White"	"Midwest"	2018	1.8
+"NHPI-White"	"Midwest"	2019	8.5
+"NHPI-White"	"Midwest"	2020	5.3
+"NHPI-White"	"Northeast"	2008	0
+"NHPI-White"	"Northeast"	2009	3.4
+"NHPI-White"	"Northeast"	2010	6.5
+"NHPI-White"	"Northeast"	2011	1.2
+"NHPI-White"	"Northeast"	2012	2.4
+"NHPI-White"	"Northeast"	2013	2.4
+"NHPI-White"	"Northeast"	2014	3.6
+"NHPI-White"	"Northeast"	2015	1.5
+"NHPI-White"	"Northeast"	2016	4.2
+"NHPI-White"	"Northeast"	2017	7
+"NHPI-White"	"Northeast"	2018	4.2
+"NHPI-White"	"Northeast"	2019	3.7
+"NHPI-White"	"Northeast"	2020	7.3
+"NHPI-White"	"South"	2008	2.6
+"NHPI-White"	"South"	2009	1.5
+"NHPI-White"	"South"	2010	1.5
+"NHPI-White"	"South"	2011	1.8
+"NHPI-White"	"South"	2012	1.5
+"NHPI-White"	"South"	2013	1.4
+"NHPI-White"	"South"	2014	1.3
+"NHPI-White"	"South"	2015	3.4
+"NHPI-White"	"South"	2016	1
+"NHPI-White"	"South"	2017	2
+"NHPI-White"	"South"	2018	1.9
+"NHPI-White"	"South"	2019	2.6
+"NHPI-White"	"South"	2020	2.7
+"NHPI-White"	"United States"	2008	1.8
+"NHPI-White"	"United States"	2009	1.8
+"NHPI-White"	"United States"	2010	1.7
+"NHPI-White"	"United States"	2011	1.9
+"NHPI-White"	"United States"	2012	1.5
+"NHPI-White"	"United States"	2013	1.7
+"NHPI-White"	"United States"	2014	1.5
+"NHPI-White"	"United States"	2015	2.4
+"NHPI-White"	"United States"	2016	1.4
+"NHPI-White"	"United States"	2017	1.9
+"NHPI-White"	"United States"	2018	2.3
+"NHPI-White"	"United States"	2019	2.5
+"NHPI-White"	"United States"	2020	2.8
+"NHPI-White"	"West"	2008	1.3
+"NHPI-White"	"West"	2009	1.3
+"NHPI-White"	"West"	2010	1.1
+"NHPI-White"	"West"	2011	1.5
+"NHPI-White"	"West"	2012	1.1
+"NHPI-White"	"West"	2013	1.6
+"NHPI-White"	"West"	2014	1.1
+"NHPI-White"	"West"	2015	1.9
+"NHPI-White"	"West"	2016	1.1
+"NHPI-White"	"West"	2017	1.3
+"NHPI-White"	"West"	2018	1.9
+"NHPI-White"	"West"	2019	1.8
+"NHPI-White"	"West"	2020	2

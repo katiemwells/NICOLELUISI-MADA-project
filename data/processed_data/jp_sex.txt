@@ -1,0 +1,131 @@
+"Sex"	"Geo"	"Year"	"Rate"
+"Female"	"Midwest"	2008	4
+"Female"	"Midwest"	2009	4
+"Female"	"Midwest"	2010	4
+"Female"	"Midwest"	2011	4
+"Female"	"Midwest"	2012	3
+"Female"	"Midwest"	2013	3
+"Female"	"Midwest"	2014	3
+"Female"	"Midwest"	2015	3
+"Female"	"Midwest"	2016	3
+"Female"	"Midwest"	2017	3
+"Female"	"Midwest"	2018	3
+"Female"	"Midwest"	2019	3
+"Female"	"Midwest"	2020	3
+"Female"	"Northeast"	2008	10
+"Female"	"Northeast"	2009	9
+"Female"	"Northeast"	2010	8
+"Female"	"Northeast"	2011	8
+"Female"	"Northeast"	2012	7
+"Female"	"Northeast"	2013	6
+"Female"	"Northeast"	2014	6
+"Female"	"Northeast"	2015	6
+"Female"	"Northeast"	2016	6
+"Female"	"Northeast"	2017	5
+"Female"	"Northeast"	2018	5
+"Female"	"Northeast"	2019	5
+"Female"	"Northeast"	2020	4
+"Female"	"South"	2008	14
+"Female"	"South"	2009	12
+"Female"	"South"	2010	11
+"Female"	"South"	2011	10
+"Female"	"South"	2012	9
+"Female"	"South"	2013	9
+"Female"	"South"	2014	8
+"Female"	"South"	2015	8
+"Female"	"South"	2016	8
+"Female"	"South"	2017	8
+"Female"	"South"	2018	7
+"Female"	"South"	2019	7
+"Female"	"South"	2020	6
+"Female"	"United States"	2008	8.9
+"Female"	"United States"	2009	7.9
+"Female"	"United States"	2010	7.2
+"Female"	"United States"	2011	6.6
+"Female"	"United States"	2012	6.1
+"Female"	"United States"	2013	5.7
+"Female"	"United States"	2014	5.6
+"Female"	"United States"	2015	5.4
+"Female"	"United States"	2016	5.4
+"Female"	"United States"	2017	5.2
+"Female"	"United States"	2018	5.1
+"Female"	"United States"	2019	4.9
+"Female"	"United States"	2020	3.8
+"Female"	"West"	2008	4
+"Female"	"West"	2009	4
+"Female"	"West"	2010	3
+"Female"	"West"	2011	3
+"Female"	"West"	2012	3
+"Female"	"West"	2013	3
+"Female"	"West"	2014	3
+"Female"	"West"	2015	3
+"Female"	"West"	2016	3
+"Female"	"West"	2017	3
+"Female"	"West"	2018	3
+"Female"	"West"	2019	3
+"Female"	"West"	2020	2
+"Male"	"Midwest"	2008	16
+"Male"	"Midwest"	2009	16
+"Male"	"Midwest"	2010	16
+"Male"	"Midwest"	2011	16
+"Male"	"Midwest"	2012	16
+"Male"	"Midwest"	2013	16
+"Male"	"Midwest"	2014	15
+"Male"	"Midwest"	2015	15
+"Male"	"Midwest"	2016	15
+"Male"	"Midwest"	2017	15
+"Male"	"Midwest"	2018	14
+"Male"	"Midwest"	2019	13
+"Male"	"Midwest"	2020	12
+"Male"	"Northeast"	2008	29
+"Male"	"Northeast"	2009	28
+"Male"	"Northeast"	2010	27
+"Male"	"Northeast"	2011	25
+"Male"	"Northeast"	2012	25
+"Male"	"Northeast"	2013	23
+"Male"	"Northeast"	2014	23
+"Male"	"Northeast"	2015	22
+"Male"	"Northeast"	2016	21
+"Male"	"Northeast"	2017	20
+"Male"	"Northeast"	2018	19
+"Male"	"Northeast"	2019	18
+"Male"	"Northeast"	2020	15
+"Male"	"South"	2008	39
+"Male"	"South"	2009	37
+"Male"	"South"	2010	35
+"Male"	"South"	2011	34
+"Male"	"South"	2012	33
+"Male"	"South"	2013	32
+"Male"	"South"	2014	33
+"Male"	"South"	2015	33
+"Male"	"South"	2016	32
+"Male"	"South"	2017	31
+"Male"	"South"	2018	30
+"Male"	"South"	2019	30
+"Male"	"South"	2020	24
+"Male"	"United States"	2008	29.3
+"Male"	"United States"	2009	27.9
+"Male"	"United States"	2010	26.9
+"Male"	"United States"	2011	25.8
+"Male"	"United States"	2012	25.5
+"Male"	"United States"	2013	24.6
+"Male"	"United States"	2014	25
+"Male"	"United States"	2015	24.8
+"Male"	"United States"	2016	24.3
+"Male"	"United States"	2017	23.3
+"Male"	"United States"	2018	22.7
+"Male"	"United States"	2019	21.9
+"Male"	"United States"	2020	18.3
+"Male"	"West"	2008	26
+"Male"	"West"	2009	24
+"Male"	"West"	2010	24
+"Male"	"West"	2011	22
+"Male"	"West"	2012	22
+"Male"	"West"	2013	21
+"Male"	"West"	2014	22
+"Male"	"West"	2015	22
+"Male"	"West"	2016	22
+"Male"	"West"	2017	21
+"Male"	"West"	2018	20
+"Male"	"West"	2019	20
+"Male"	"West"	2020	17

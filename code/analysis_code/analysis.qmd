@@ -1,0 +1,356 @@
+---
+title: "Analysis script"
+author: "Nicole Luisi"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Setup
+
+```{r, echo=FALSE, message=FALSE}
+# load R packages
+library(here) 
+library(readxl)
+library(ggplot2)
+library(skimr) 
+library(plotly)
+library(gt)
+library(knitr)
+library(dplyr)
+library(kableExtra)
+library(gridExtra)
+library(ggpubr)
+library(janitor)
+```
+
+# Load clean data
+
+```{r}
+alldata<-readRDS(here("data", "processed_data", "allnewdx.rds"))
+```
+
+```{r, echo=FALSE, message=FALSE}
+# Plot of US rates by sex, age, race/ethnicity 
+national<-alldata %>% filter(Geo %in% c("United States"))
+natfig_s <- plot_ly(national, x = ~Year, y = ~Overall_Rate, name = "Overall", type="scatter", mode = "lines", line = list(width = 3, dash = "dash", color = "gray")) 
+natfig_s <- natfig_s %>% add_trace(y = ~Male_Rate, name = "Male", mode = 'lines', line = list(width = 3, dash = "solid", color = "blue"))
+natfig_s <- natfig_s %>% add_trace(y = ~Female_Rate, name = "Female", mode = 'lines', line = list(width = 3, dash = "solid", color = "green"))
+natfig_s <- natfig_s %>% layout(title="National New Diagnosis Rate by Sex", legend=list(title=list(text='Sex')), 
+                  xaxis = list(title = 'Year'),
+                  yaxis = list(title = 'Rate per 100,000'))
+
+natfig_r <- plot_ly(national, x = ~Year, y = ~Overall_Rate, name = "Overall", type="scatter", mode = "lines", line = list(width = 3, dash = "dash", color = "gray")) 
+natfig_r <- natfig_r %>% add_trace(y = ~Black_Rate, name = "Black", mode = 'lines', line = list(width = 3, dash = "solid", color = "blue"))
+natfig_r <- natfig_r %>% add_trace(y = ~White_Rate, name = "White", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkgreen"))
+natfig_r <- natfig_r %>% add_trace(y = ~Hispanic_Rate, name = "Hispanic", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkred"))
+natfig_r <- natfig_r %>% add_trace(y = ~Asian_Rate, name = "Asian", mode = 'lines', line = list(width = 3, dash = "solid", color = "cornflowerblue"))
+natfig_r <- natfig_r %>% add_trace(y = ~AIAN_Rate, name = "AIAN", mode = 'lines', line = list(width = 3, dash = "solid", color = "brown1"))
+natfig_r <- natfig_r %>% add_trace(y = ~MultRace_Rate, name = "Multiracial", mode = 'lines', line = list(width = 3, dash = "solid", color = "purple"))
+natfig_r <- natfig_r %>% add_trace(y = ~NHPI_Rate, name = "NHPI", mode = 'lines', line = list(width = 3, dash = "solid", color = "magenta"))
+natfig_r <- natfig_r %>% layout(title="National New Diagnosis Rate by Race/Ethnicity", legend=list(title=list(text='Race/Ethnicity')), 
+                  xaxis = list(title = 'Year'),
+                  yaxis = list(title = 'Rate per 100,000'))
+
+natfig_a <- plot_ly(national, x = ~Year, y = ~Overall_Rate, name = "Overall", type="scatter", mode = "lines", line = list(width = 3, dash = "dash", color = "gray")) 
+natfig_a <- natfig_a %>% add_trace(y = ~Age13t24_Rate, name = "Age 13-24", mode = 'lines', line = list(width = 3, dash = "solid", color = "blue"))
+natfig_a <- natfig_a %>% add_trace(y = ~Age25t34_Rate, name = "Age 25-34", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkgreen"))
+natfig_a <- natfig_a %>% add_trace(y = ~Age35t44_Rate, name = "Age 35-44e", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkred"))
+natfig_a <- natfig_a %>% add_trace(y = ~Age45t54_Rate, name = "Age 45-54", mode = 'lines', line = list(width = 3, dash = "solid", color = "cornflowerblue"))
+natfig_a <- natfig_a %>% add_trace(y = ~Age55p_Rate, name = "Age 55+", mode = 'lines', line = list(width = 3, dash = "solid", color = "orange"))
+natfig_a <- natfig_a %>% layout(title="National New Diagnosis Rate by Age", legend=list(title=list(text='Age')), 
+                  xaxis = list(title = 'Year'),
+                  yaxis = list(title = 'Rate per 100,000'))
+
+natfig_s
+plotly::export(p=natfig_s, file = here("results", "US_rates_bysex.png"))
+natfig_a
+plotly::export(p=natfig_a, file = here("results", "US_rates_byage.png"))
+natfig_r
+plotly::export(p=natfig_r, file = here("results", "US_rates_byrace.png"))
+```     
+
+# Load data from external Joinpoint program
+
+```{r, echo=FALSE, message=FALSE}
+# Read in data from external Joinpoint program 
+
+# Function to pull names of sheets in excel files (just applying to one since all are the same)
+
+multiplesheets <- function(fname) {
+  sheets <- readxl::excel_sheets(fname)
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame <- lapply(tibble, as.data.frame)
+  names(data_frame) <- sheets
+  print(data_frame)
+}
+path <- here("data", "processed_data", "djp_overall.xlsx")
+multiplesheets(path)
+
+# Overall
+jpoutput_overall_aapc <- read_excel(here("data", "processed_data", "djp_overall.xlsx"), sheet="AAPCs")
+names(jpoutput_overall_aapc)<- c("geo", "joinpoint_model", "AAPC_Index", "start", "end", "AAPC", "AAPC_lCI", "AAPC_uCI","significant", "test_statstic", "p-value")
+jpoutput_overall_apc <- read_excel(here("data", "processed_data", "djp_overall.xlsx"), sheet="APCs")
+names(jpoutput_overall_apc)<-c("Geo","Model","Segment","Segment Start","Segment End","APC","APC 95% LCL","APC 95% UCL","APC Significant","Test Statistic","P-Value")
+
+# Race
+jpoutput_race_aapc <- read_excel(here("data", "processed_data", "djp_race.xlsx"), sheet="AAPCs")
+names(jpoutput_race_aapc)<- c("type","geo", "joinpoint_model", "AAPC_Index", "start", "end", "AAPC", "AAPC_lCI", "AAPC_uCI","significant", "test_statstic", "p-value")
+jpoutput_race_data <- read_excel(here("data", "processed_data", "djp_race.xlsx"), sheet="Data")
+names(jpoutput_race_data)<- c("type","geo", "year", "rate", "jp", "flag")
+jpoutput_race_apc <- read_excel(here("data", "processed_data", "djp_race.xlsx"), sheet="APCs")
+names(jpoutput_race_apc)<-c("Type","Geo","Model","Segment","Segment Start","Segment End","APC","APC 95% LCL","APC 95% UCL","APC Significant","Test Statistic","P-Value")
+
+# Race Ratios
+jpoutput_raceratios_aapc <- read_excel(here("data", "processed_data", "djp_raceratios.xlsx"), sheet="AAPCs")
+names(jpoutput_raceratios_aapc)<- c("type","geo", "joinpoint_model", "AAPC_Index", "start", "end", "AAPC", "AAPC_lCI", "AAPC_uCI","significant", "test_statstic", "p-value")
+jpoutput_raceratio_data <- read_excel(here("data", "processed_data", "djp_raceratios.xlsx"), sheet="Data")
+names(jpoutput_raceratio_data)<- c("type","geo", "year", "rate", "jp", "flag")
+jpoutput_raceratio_apc <- read_excel(here("data", "processed_data", "djp_raceratios.xlsx"), sheet="APCs")
+names(jpoutput_raceratio_apc)<-c("Type","Geo","Model","Segment","Segment Start","Segment End","APC","APC 95% LCL","APC 95% UCL","APC Significant","Test Statistic","P-Value")
+
+# Age
+jpoutput_age_aapc <- read_excel(here("data", "processed_data", "djp_age.xlsx"), sheet="AAPCs")
+names(jpoutput_age_aapc)<- c("type","geo", "joinpoint_model", "AAPC_Index", "start", "end", "AAPC", "AAPC_lCI", "AAPC_uCI","significant", "test_statstic", "p-value")
+jpoutput_age_apc <- read_excel(here("data", "processed_data", "djp_age.xlsx"), sheet="APCs")
+names(jpoutput_age_apc)<-c("Type","Geo","Model","Segment","Segment Start","Segment End","APC","APC 95% LCL","APC 95% UCL","APC Significant","Test Statistic","P-Value")
+
+# Sex
+jpoutput_sex_aapc <- read_excel(here("data", "processed_data", "djp_sex.xlsx"), sheet="AAPCs")
+names(jpoutput_sex_aapc)<- c("type","geo", "joinpoint_model", "AAPC_Index", "start", "end", "AAPC", "AAPC_lCI", "AAPC_uCI","significant", "test_statstic", "p-value")
+jpoutput_sex_apc <- read_excel(here("data", "processed_data", "djp_sex.xlsx"), sheet="APCs")
+names(jpoutput_sex_apc)<-c("Type","Geo","Model","Segment","Segment Start","Segment End","APC","APC 95% LCL","APC 95% UCL","APC Significant","Test Statistic","P-Value")
+```
+
+## Table of AAPCs
+
+```{r, echo=FALSE, message=FALSE}
+jpoutput_overall_aapc$type<-"Overall"
+jpoutput_overall_aapc <- jpoutput_overall_aapc[, c(12, 1:11)]
+all_aapc<-rbind(jpoutput_overall_aapc,jpoutput_sex_aapc,jpoutput_age_aapc,jpoutput_race_aapc,jpoutput_raceratios_aapc) %>% select("type","geo", "AAPC", "AAPC_lCI", "AAPC_uCI", "p-value")
+
+kable(all_aapc,caption = "All AAPC Results", 
+      col.names=c("Stratification", "Geographic Area", "AAPC", "AAPC_lCI", "AAPC_uCI", "p-value"),      align="rc") %>% 
+  row_spec(row = 0, color = "white", background = "#004987") %>% kable_styling(full_width=T, bootstrap_options = "striped", font_size=10) %>% 
+  pack_rows("Overall", 1, 5) %>%
+  pack_rows("Female", 6, 10) %>%
+  pack_rows("Male", 11, 15) %>%
+  pack_rows("Age 13-24", 16, 20) %>%
+  pack_rows("Age 25-34", 21, 25) %>%
+  pack_rows("Age 35-44", 26, 30)  %>%
+  pack_rows("Age 45-54", 31, 35)  %>%
+  pack_rows("Age 55+", 36, 40)  %>%
+  pack_rows("American Indian/Alaska Native", 41, 44) %>%
+  pack_rows("Asian", 45, 49) %>%
+  pack_rows("Black", 50, 54) %>%
+  pack_rows("Hispanic", 55, 59) %>%
+  pack_rows("Multiracial", 60, 64) %>%
+  pack_rows("Native Hawaiian/Pacific Islander", 65, 67) %>%
+  pack_rows("White", 68, 72) %>%
+  pack_rows("AIAN-White", 73, 76) %>%
+  pack_rows("Asian-White", 77, 81) %>%
+  pack_rows("Black-White", 82, 86) %>%
+  pack_rows("Hispanic-White", 87, 91) %>%
+  pack_rows("Multi-White", 92, 96) %>%
+  pack_rows("NHPI-White", 97, 99) 
+
+table_file6 = here("results", "aapc_all_results.rds")
+saveRDS(all_aapc, file = table_file6)
+```
+
+## Plot of US Race Rate Ratios (White=ref)
+
+```{r, echo=FALSE, message=FALSE}
+US_jpoutput_raceratios_aapc<-jpoutput_raceratios_aapc %>% filter(geo %in% c("United States"))
+fig_US_raceratio_AAPC<-ggplot(US_jpoutput_raceratios_aapc, aes(type, AAPC)) +   
+      geom_point() + theme_minimal() + ggtitle("US") + theme(plot.title = element_text(hjust = 0.5)) +
+      geom_errorbar(aes(ymin = AAPC_lCI, ymax = AAPC_uCI)) +
+      scale_x_discrete(labels=c('AIAN', 'Asian', 'Black', 'Hispanic', 'Multi', 'NHPI')) +
+      xlab("Race Ratio (vs White)") + ylab("Avg Annual % Change")
+
+South_jpoutput_raceratios_aapc<-jpoutput_raceratios_aapc %>% filter(geo %in% c("South"))
+fig_South_raceratio_AAPC<-ggplot(South_jpoutput_raceratios_aapc, aes(type, AAPC)) +   
+      geom_point() + theme_minimal() + ggtitle("South") + theme(plot.title = element_text(hjust = 0.5)) +
+      geom_errorbar(aes(ymin = AAPC_lCI, ymax = AAPC_uCI)) +
+      scale_x_discrete(labels=c('AIAN', 'Asian', 'Black', 'Hispanic', 'Multi', 'NHPI')) +
+      xlab("Race Ratio (vs White)") + ylab("Avg Annual % Change")
+
+Northeast_jpoutput_raceratios_aapc<-jpoutput_raceratios_aapc %>% filter(geo %in% c("Northeast"))
+fig_Northeast_raceratio_AAPC<-ggplot(Northeast_jpoutput_raceratios_aapc, aes(type, AAPC)) +        
+      geom_point() + theme_minimal() + ggtitle("Northeast") + theme(plot.title = element_text(hjust = 0.5)) +
+      geom_errorbar(aes(ymin = AAPC_lCI, ymax = AAPC_uCI)) +
+      scale_x_discrete(labels=c('Asian', 'Black', 'Hispanic', 'Multi')) +
+      xlab("Race Ratio (vs White)") + ylab("Avg Annual % Change")
+
+West_jpoutput_raceratios_aapc<-jpoutput_raceratios_aapc %>% filter(geo %in% c("West"))
+fig_West_raceratio_AAPC<-ggplot(West_jpoutput_raceratios_aapc, aes(type, AAPC)) + 
+      geom_point() + theme_minimal() + ggtitle("West") + theme(plot.title = element_text(hjust = 0.5)) +
+      geom_errorbar(aes(ymin = AAPC_lCI, ymax = AAPC_uCI)) +
+      scale_x_discrete(labels=c('AIAN', 'Asian', 'Black', 'Hispanic', 'Multi', 'NHPI')) +
+      xlab("Race Ratio (vs White)") + ylab("Avg Annual % Change")
+
+Midwest_jpoutput_raceratios_aapc<-jpoutput_raceratios_aapc %>% filter(geo %in% c("Midwest"))
+fig_Midwest_raceratio_AAPC<-ggplot(Midwest_jpoutput_raceratios_aapc, aes(type, AAPC)) + 
+      geom_point() + theme_minimal() + ggtitle("Midwest") + theme(plot.title = element_text(hjust = 0.5)) +
+      geom_errorbar(aes(ymin = AAPC_lCI, ymax = AAPC_uCI)) +
+      scale_x_discrete(labels=c('AIAN', 'Asian', 'Black', 'Hispanic', 'Multi')) +
+      xlab("Race Ratio (vs White)") + ylab("Avg Annual % Change")
+
+rr_reg<-grid.arrange(arrangeGrob(fig_Northeast_raceratio_AAPC, fig_South_raceratio_AAPC, fig_Midwest_raceratio_AAPC, fig_West_raceratio_AAPC, nrow = 2))
+
+rr_reg
+figure_file = here("results","raceratio_byregion.png")
+ggsave(filename = figure_file, plot=rr_reg) 
+```
+
+## Plot of US Rates by Race
+
+```{r, echo=FALSE, message=FALSE}
+US_jpoutput_race<-jpoutput_race_data %>% filter(geo %in% c("United States"))
+US_race_rate_fig <- ggplot(US_jpoutput_race, aes(x=year, y=log(rate), size=log(rate), color=type)) + theme_light() +
+    geom_point(alpha=0.5) +
+    scale_y_continuous("Log Rate") +
+    scale_x_continuous("Year", breaks=c(2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020)) + ggtitle("US Rates by Race") + 
+    theme(plot.title = element_text(hjust = 0.5)) + guides(color=guide_legend(title="Race/Ethnicity"), size=guide_legend(title="Log Rate")) 
+
+US_race_rate_fig
+figure_file = here("results","racerates_allUS.png")
+ggsave(filename = figure_file, plot=US_race_rate_fig) 
+```
+
+## Plot of Regional Rates by Race
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Northeast
+Northeast_jpoutput_race<-jpoutput_race_data %>% filter(geo %in% c("Northeast"))
+Northeast_race_rate_fig <- ggplot(Northeast_jpoutput_race, aes(x=year, y=log(rate), size=log(rate), color=type)) + theme_light() +
+    geom_point(alpha=0.5) +
+    scale_y_continuous("Log Rate") +
+    scale_x_continuous("Year", breaks=c(2008,2010,2012,2014,2016,2018,2020)) + ggtitle("Northeast") + 
+    theme(plot.title = element_text(hjust = 0.5)) + guides(color=guide_legend(title="Race/Ethnicity"), size=guide_legend(title="Log Rate")) 
+
+# South
+South_jpoutput_race<-jpoutput_race_data %>% filter(geo %in% c("South"))
+South_race_rate_fig <- ggplot(South_jpoutput_race, aes(x=year, y=log(rate), size=log(rate), color=type)) + theme_light() +
+    geom_point(alpha=0.5) +
+    scale_y_continuous("Log Rate") +
+    scale_x_continuous("Year", breaks=c(2008,2010,2012,2014,2016,2018,2020)) + ggtitle("South") + 
+    theme(plot.title = element_text(hjust = 0.5)) + guides(color=guide_legend(title="Race/Ethnicity"), size=guide_legend(title="Log Rate")) 
+
+# Midwest
+Midwest_jpoutput_race<-jpoutput_race_data %>% filter(geo %in% c("Midwest"))
+Midwest_race_rate_fig <- ggplot(Midwest_jpoutput_race, aes(x=year, y=log(rate), size=log(rate), color=type)) + theme_light() +
+    geom_point(alpha=0.5) +
+    scale_y_continuous("Log Rate") +
+    scale_x_continuous("Year", breaks=c(2008,2010,2012,2014,2016,2018,2020)) + ggtitle("Midwest") + 
+    theme(plot.title = element_text(hjust = 0.5)) + guides(color=guide_legend(title="Race/Ethnicity"), size=guide_legend(title="Log Rate")) 
+
+# West
+West_jpoutput_race<-jpoutput_race_data %>% filter(geo %in% c("West"))
+West_race_rate_fig <- ggplot(West_jpoutput_race, aes(x=year, y=log(rate), size=log(rate), color=type)) + theme_light() +
+    geom_point(alpha=0.5) +
+    scale_y_continuous("Log Rate") +
+    scale_x_continuous("Year", breaks=c(2008,2010,2012,2014,2016,2018,2020)) + ggtitle("West") + 
+    theme(plot.title = element_text(hjust = 0.5)) + guides(color=guide_legend(title="Race/Ethnicity"), size=guide_legend(title="Log Rate")) 
+
+r_reg<-ggarrange(Northeast_race_rate_fig, South_race_rate_fig, Midwest_race_rate_fig, West_race_rate_fig, ncol=2, nrow = 2, common.legend = TRUE, legend="right")
+
+r_reg
+figure_file = here("results","racerates_region.png")
+ggsave(filename = figure_file, plot=r_reg) 
+```
+
+## Joinpoint Plots for Race
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Black
+US_jpoutput_black<-jpoutput_race_data %>% filter(geo %in% c("United States") & type %in% c("Black"))
+black_jp_plot <- ggplot(US_jpoutput_black, aes(x=year, y=rate)) + geom_point() + 
+  theme_light() + geom_line(aes(year, as.numeric(jp)), color="blue") +
+  scale_y_continuous("Rate", breaks = c(0, 20, 40, 60, 80), limits=c(0, 80)) +
+  scale_x_continuous("Year", breaks=c(2008,2011,2014,2017,2020)) + ggtitle("All US: Black") + theme(plot.title = element_text(hjust = 0.5))
+
+# White
+US_jpoutput_white<-jpoutput_race_data %>% filter(geo %in% c("United States") & type %in% c("White"))
+white_jp_plot <- ggplot(US_jpoutput_white, aes(x=year, y=rate)) + geom_point() + 
+  theme_light() + geom_line(aes(year, as.numeric(jp)), color="blue") +
+  scale_y_continuous("Rate", breaks = c(0, 20, 40, 60, 80), limits=c(0, 80)) +
+  scale_x_continuous("Year", breaks=c(2008,2011,2014,2017,2020)) + ggtitle("All US: White") + theme(plot.title = element_text(hjust = 0.5))
+
+# Hispanic
+US_jpoutput_hisp<-jpoutput_race_data %>% filter(geo %in% c("United States") & type %in% c("Hispanic"))
+hisp_jp_plot <- ggplot(US_jpoutput_hisp, aes(x=year, y=rate)) + geom_point() + 
+  theme_light() + geom_line(aes(year, as.numeric(jp)), color="blue") +
+  scale_y_continuous("Rate", breaks = c(0, 20, 40, 60, 80), limits=c(0, 80)) +
+  scale_x_continuous("Year", breaks=c(2008,2011,2014,2017,2020)) + ggtitle("All US: Hispanic") + theme(plot.title = element_text(hjust = 0.5))
+
+jp_all_bwh<-grid.arrange(arrangeGrob(black_jp_plot, hisp_jp_plot, white_jp_plot, nrow = 1))
+
+jp_all_bwh
+figure_file = here("results","raceBWH_joinpoints_allUS.png")
+ggsave(filename = figure_file, plot=jp_all_bwh) 
+```
+
+## Supplemental Table of APCs
+
+```{r, echo=FALSE, message=FALSE}
+jpoutput_overall_apc$Type<-"Overall" 
+jpoutput_overall_apc <- jpoutput_overall_apc[, c(12, 1:11)]
+all_apc<-rbind(jpoutput_overall_apc,jpoutput_sex_apc,jpoutput_age_apc,jpoutput_race_apc,jpoutput_raceratio_apc)
+
+kable(all_apc,caption = "All APC Results", align="rc") %>% 
+  row_spec(row = 0, color = "white", background = "#004987") %>% kable_styling(full_width=T, bootstrap_options = "striped", font_size=10) %>% 
+  pack_rows("Overall", 1, 15) %>%
+  pack_rows("Female", 16, 24) %>%
+  pack_rows("Male", 25, 32) %>%
+  pack_rows("Age 13-24", 33, 41) %>%
+  pack_rows("Age 25-34", 42, 54) %>%
+  pack_rows("Age 35-44", 55, 63)  %>%
+  pack_rows("Age 45-54", 64, 70)  %>%
+  pack_rows("Age 55+", 71, 76)  %>%
+  pack_rows("American Indian/Alaska Native", 77, 80) %>%
+  pack_rows("Asian", 81, 90) %>%
+  pack_rows("Black", 91, 102) %>%
+  pack_rows("Hispanic", 103, 113) %>%
+  pack_rows("Multiracial", 114, 120) %>%
+  pack_rows("Native Hawaiian/Pacific Islander", 121, 123) %>%
+  pack_rows("White", 124, 130) %>%
+  pack_rows("AIAN-White", 131, 134) %>%
+  pack_rows("Asian-White", 135, 142) %>%
+  pack_rows("Black-White", 143, 147) %>%
+  pack_rows("Hispanic-White", 148, 156) %>%
+  pack_rows("Multi-White", 157, 165) %>%
+  pack_rows("NHPI-White", 166, 168) 
+
+table_file7 = here("results", "apc_all_results.rds")
+saveRDS(all_apc, file = table_file7)
+```
+
+## Rate difference comparisons by race (Black and Hispanic vs White)
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+ratediff_us_compare_bwh<-alldata %>% filter(Geo %in% c("United States")) %>%  dplyr::select(Year,Black_Rate,White_Rate,Hispanic_Rate, Asian_Rate, AIAN_Rate, MultRace_Rate,NHPI_Rate)
+ratediff_us_compare_bwh$DiffWB<-ratediff_us_compare_bwh$White_Rate - ratediff_us_compare_bwh$Black_Rate
+ratediff_us_compare_bwh$DiffWH<-ratediff_us_compare_bwh$White_Rate - ratediff_us_compare_bwh$Hispanic_Rate
+nat_diff_bwh <- plot_ly(ratediff_us_compare_bwh, x = ~Year, y = ~DiffWB, name = "White-Black Rate Difference", type="scatter", mode = "lines", line = list(width = 3, dash = "solid", color = "blue")) 
+nat_diff_bwh <- nat_diff_bwh %>% add_trace(y = ~DiffWH, name = "White-Hispanic Rate Difference", mode = 'lines', line = list(width = 3, dash = "solid", color = "green"))
+nat_diff_bwh <- nat_diff_bwh %>% layout(title="New Diagnoses Rate Differences by Year, all US", legend=list(title=list(text=' ')), 
+                  xaxis = list(title = 'Year'),
+                  yaxis = list(title = 'Rate Difference'))
+
+nat_diff_bwh
+plotly::export(p=nat_diff_bwh, file = here("results", "nat_diff_bwh.png"))
+```
+
+## Supplemental Table of Rates, National
+
+```{r, echo=FALSE, message=FALSE}
+national<-alldata %>% filter(Geo %in% c("United States")) %>% dplyr::select(Year,Overall_Rate,Male_Rate,Female_Rate,Black_Rate,White_Rate,Hispanic_Rate,Asian_Rate,AIAN_Rate,MultRace_Rate,NHPI_Rate,Age13t24_Rate,Age25t34_Rate,Age35t44_Rate,Age45t54_Rate,Age55p_Rate)
+national %>% gt::gt() %>% 
+  gt::tab_header(title = "National Rate Data") %>%
+  gt::tab_style(style = list(gt::cell_fill(color = "#7cb9e8"),
+                             gt::cell_text(weight = "bold")),
+                locations = gt::cells_body(columns = Year))
+
+table_file8 = here("results", "all_us_rates.rds")
+saveRDS(national, file = table_file8)
+```

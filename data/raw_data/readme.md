@@ -1,10 +1,5 @@
-This folder contains a simple made-up data-set in an Excel file.
+About the Folder:
 
-It contains the variables `Height`, `Weight` and `Sex` of a few imaginary individuals.
+Sub-folder `AIDSVu` contains source data downloaded from AIDSVu (sub-folder `AIDSVu`). Subfolders within the `AIDSVu` folder are separated by geographic area (`National/NewDx`, `Region/NewDx`, `State/NewDx`). Note that state-level analyses are not included in this project but keeping these files handy for later. 
 
-The dataset purposefully contains some faulty entries that need to be cleaned.
-
-Generally, any dataset should contain some meta-data explaining what each variable in the dataset is. (This is often called a **Codebook**.) For this simple example, the codebook is given as a second sheet in the Excel file.
-
-This raw data-set should generally not be edited by hand. It should instead be loaded and processed/cleaned using code.
-
+These files contain new diagnosis rate data (rate per 100,000). All headers in the raw files are self-explanatory (rates for overall, sex, age group, race/ethnicity). Detailed computation and other methods are available at https://aidsvu.org/data-methods/data-methods-statecounty/. 

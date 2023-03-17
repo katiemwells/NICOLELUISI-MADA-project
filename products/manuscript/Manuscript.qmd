@@ -1,10 +1,11 @@
 ---
-title: "MADA Final Project"
+title: "MADA 8060E Project"
 subtitle: "Trends in New HIV Diagnoses in the US, 2008-2022"
 author: Nicole Luisi
 date: "`r Sys.Date()`"
 format:
-  docx:
+  html:
+    self-contained: true
     toc: false
     number-sections: true
     highlight-style: github
@@ -12,9 +13,7 @@ bibliography: ../dataanalysis_template_references.bib
 csl: ../apa.csl
 ---
 
-Note: There seem to be  lot of issues getting tables to render well in Word doc format, need to come back to this. I tried 5 or so different methods and they all look terrible when in a doc vs html. Also having issues with resolving crossrefs. 
-
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 # load R packages
 library(here) 
 library(ggplot2)
@@ -22,13 +21,16 @@ library(skimr)
 library(plotly)
 library(gt)
 library(knitr)
+library(readxl)
+library(dplyr)
+library(kableExtra)
+library(gridExtra)
+library(ggpubr)
 ```
-
 
 # Summary/Abstract
 
-The purpose of this analysis is to analyze US trends in new HIV diagnoses over the past 10 years. Previous research by [Chapin-Bardales et al. (2017)](https://doi.org/10.1016/j.annepidem.2017.04.002) evaluated trends in AIDS diagnosis rates by race/ethnicity between 1984-2013. This analysis will focus on new HIV diagnosesbetween  2008-2022; subgroups will include region, age group, gender, and race/ethnicity. [@Chapin2017]
-
+The purpose of this analysis is to analyze US trends in new HIV diagnoses over the past 10 years. Previous research by [Chapin-Bardales et al. (2017)](https://doi.org/10.1016/j.annepidem.2017.04.002) evaluated trends in AIDS diagnosis rates by race/ethnicity between 1984-2013. This analysis will focus on new HIV diagnoses between 2008-2022; subgroups will include region, age group, gender, and race/ethnicity. [@Chapin2017]
 
 # Introduction 
 
@@ -39,181 +41,203 @@ _Provide enough background on your topic that others can understand the why and 
 
 **Data Source**:
 
-*Note: New diagnoses data are currently available through 2020. If 2021-2022 data are not available by the time the analysis needs to be completed, the analysis will be temporarily restricted to 2012-2020.*
+*Note: New diagnoses data are currently only available through 2020 on AIDSVu and CDC Atlas. If 2021-2022 data are not available by the time the analysis needs to be completed, the analysis will be temporarily restricted to 2012-2020.*
 
-+ HIV New Diagnoses: [AIDSVu](https://aidsvu.org/) [@Sullivan2020] 
+* HIV New Diagnoses: [AIDSVu](https://aidsvu.org/) [@Sullivan2020] 
     
 **Analysis**:
 
-+ Rate (per 100,000) of new HIV diagnoses by age, gender, and race/ethnicity (national, regional)
-+ Rate ratios for new HIV diagnoses by age, gender, and race/ethnicity (national, regional)
-+ Estimated annual percent change (EAPC) for incidence
-  - Calculated using [Joinpoint Regression Software (R-Callable Command-Line Version 4.9.0.0)](https://surveillance.cancer.gov/help/joinpoint/tech-help/citation)
-+ Other modeling TBD based on course modules  
+* Rate (per 100,000) of new HIV diagnoses by age, gender, and race/ethnicity (national, regional)
+* Rate ratios for new HIV diagnoses by age, gender, and race/ethnicity (national, regional)
+* Average annual percent change (AAPC) for incidence (calculated using [Joinpoint Regression Software (Version 4.9.1.0)](https://surveillance.cancer.gov/help/joinpoint/tech-help/citation))
 
 ## Questions/Hypotheses to be addressed
-_State the research questions you plan to answer with this analysis._
-
+This analysis will evaluate national and regional trends in HIV new diagnoses between 2008-2020 by sex, age, and race/ethnicity. 
 
 {{< pagebreak >}}
-
 
 # Methods 
 
-_Describe your methods. That should describe the data, the cleaning processes, and the analysis approaches. You might want to provide a shorter description here and all the details in the supplement._
-
-
 ## Data aquisition
-Data files were downloaded from [AIDSVu](https://aidsvu.org/) and placed in the `data/raw_data/AIDSVu` subfolder. The new diagnosis files consist of one xlsx file per year for each level (national, regional, etc.). 
-
+Data files were downloaded from [AIDSVu](https://aidsvu.org/) and placed in `data/raw_data/AIDSVu` sub-folders. The new diagnosis files consist of one xlsx file per year for each level (national, regional, etc.). 
 
 ## Data import and cleaning
 The `processingcode.R` file includes the following steps:
-+ Read in xlsx data files and combine all years for each level
-+ Subset variables of interest and rename variables so all levels are consistent 
-+ View/explore data
-+ Calculate new rate ratio variables for subgroups 
-+ Prepare combined national and regional file with all variables
 
+* Read in xlsx data files and combine all years for each level
+* Subset variables of interest and rename variables so all levels are consistent 
+* View/explore data
+* Calculate new rate ratio variables for subgroups (White=ref)
+* Prepare combined national and regional file with all variables
+
+The `analysis.qmd` file includes the following steps:
+
+* Read in result data from external Joinpoint analyses
+* Clean and combine Joinpoint analysis results
+* View/explore data
+* Create tables and plots of results
 
 ## Statistical analysis
-_Explain anything related to your statistical analyses._
+Rate ratios for race/ethnicity were calculated by dividing the new diagnosis rate for each group by the new diagnosis rate for the reference group (non-Hispanic White).
 
+[Joinpoint Regression Software (Version 4.9.1.0)](https://surveillance.cancer.gov/help/joinpoint/tech-help/citation) was used to test for significant joinpoints (years) to identify  trends in new diagnoses rates, nationally and regionally, by sex, age, and race/ethnicity. Trends for rate ratios were also used to assess disparities by race/ethnicity over time. For Joinpoint analyses, the maximum number of joinpoints was set to 3, and standard errors were auto-calculated by the tool under the heteroscedasticity assumption. The average annual percent changes (AAPCs) from 2008-2020 were also calculated for all subsets.
 
 {{< pagebreak >}}
 
-
 # Results
 
-## Exploratory/Descriptive analysis
+## Descriptive analysis
 
-@tbl-natsummarytable shows a full summary of the National data. 
-
-```{r}
-#| label: tbl-natsummarytable
-#| tbl-cap: "National data summary table."
-#| echo: FALSE
-alldata<-readRDS(here("data", "processed_data", "allnewdx.rds"))
-national<-alldata %>% filter(Geo %in% c("United States"))
-national %>% gt::gt() %>% 
-  gt::tab_header(title = "National Data") %>%
-  gt::tab_style(style = list(gt::cell_fill(color = "#7cb9e8"),
-                             gt::cell_text(weight = "bold")),
-                locations = gt::cells_body(columns = Year))
-```
-@fig-natplots shows exploratory plots for the national rates by subgroup.
+@fig-natplotsex shows line plot for national new diagnosis rates by sex.
 
 ```{r}
-#| label: fig-natplots
-#| fig-cap: "National rates by subgroup"
+#| label: fig-natplotsex
+#| fig-cap: "National new diagnosis rates by sex"
 #| echo: FALSE
-national<-alldata %>% filter(Geo %in% c("United States"))
-natfig <- plot_ly(national, x = ~Year, y = ~Overall_Rate, name = "Overall", type="scatter", mode = "lines", line = list(width = 3, dash = "dash", color = "gray")) 
-natfig <- natfig %>% add_trace(y = ~Male_Rate, name = "Male", mode = 'lines', line = list(width = 3, dash = "solid", color = "blue"))
-natfig <- natfig %>% add_trace(y = ~Female_Rate, name = "Female", mode = 'lines', line = list(width = 3, dash = "solid", color = "green"))
-natfig %>% layout(title="National New Diagnosis Rate by Sex", legend=list(title=list(text='Sex')), 
-                  xaxis = list(title = 'Year'),
-                  yaxis = list(title = 'Rate per 100,000'))
-
-natfig <- plot_ly(national, x = ~Year, y = ~Overall_Rate, name = "Overall", type="scatter", mode = "lines", line = list(width = 3, dash = "dash", color = "gray")) 
-natfig <- natfig %>% add_trace(y = ~Black_Rate, name = "Black", mode = 'lines', line = list(width = 3, dash = "solid", color = "blue"))
-natfig <- natfig %>% add_trace(y = ~White_Rate, name = "White", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkgreen"))
-natfig <- natfig %>% add_trace(y = ~Hispanic_Rate, name = "Hispanic", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkred"))
-natfig <- natfig %>% add_trace(y = ~Asian_Rate, name = "Asian", mode = 'lines', line = list(width = 3, dash = "solid", color = "cornflowerblue"))
-natfig <- natfig %>% add_trace(y = ~AIAN_Rate, name = "AIAN", mode = 'lines', line = list(width = 3, dash = "solid", color = "brown1"))
-natfig <- natfig %>% add_trace(y = ~MultRace_Rate, name = "Multiracial", mode = 'lines', line = list(width = 3, dash = "solid", color = "purple"))
-natfig <- natfig %>% add_trace(y = ~NHPI_Rate, name = "NHPI", mode = 'lines', line = list(width = 3, dash = "solid", color = "magenta"))
-natfig %>% layout(title="National New Diagnosis Rate by Race/Ethnicity", legend=list(title=list(text='Race/Ethnicity')), 
-                  xaxis = list(title = 'Year'),
-                  yaxis = list(title = 'Rate per 100,000'))
-
-natfig <- plot_ly(national, x = ~Year, y = ~Overall_Rate, name = "Overall", type="scatter", mode = "lines", line = list(width = 3, dash = "dash", color = "gray")) 
-natfig <- natfig %>% add_trace(y = ~Age13t24_Rate, name = "Age 13-24", mode = 'lines', line = list(width = 3, dash = "solid", color = "blue"))
-natfig <- natfig %>% add_trace(y = ~Age25t34_Rate, name = "Age 25-34", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkgreen"))
-natfig <- natfig %>% add_trace(y = ~Age35t44_Rate, name = "Age 35-44e", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkred"))
-natfig <- natfig %>% add_trace(y = ~Age45t54_Rate, name = "Age 45-54", mode = 'lines', line = list(width = 3, dash = "solid", color = "cornflowerblue"))
-natfig <- natfig %>% add_trace(y = ~Age55p_Rate, name = "Age 55+", mode = 'lines', line = list(width = 3, dash = "solid", color = "orange"))
-natfig %>% layout(title="National New Diagnosis Rate by Age", legend=list(title=list(text='Age')), 
-                  xaxis = list(title = 'Year'),
-                  yaxis = list(title = 'Rate per 100,000'))
+knitr::include_graphics(here("results","US_rates_bysex.png"))
 ```
 
-@tbl-natratios shows a summary of selected rate ratios for race/ethnicity and sex.
+@fig-natplotage shows line plot for national new diagnosis rates by age group.
 
 ```{r}
-#| label: tbl-natratios
-#| tbl-cap: "National rate ratios by select subgroups"
+#| label: fig-natplotage
+#| fig-cap: "National new diagnosis rates by age group"
 #| echo: FALSE
-national<-alldata %>% filter(Geo %in% c("United States"))
-national_sub <- national %>% dplyr::select("Year", "Black_Rate", "White_Rate", "Hispanic_Rate", "black_white_rateratio", "hispanic_white_rateratio", "Male_Rate", "Female_Rate", "female_male_rateratio")
-national_sub %>% gt::gt() %>% 
-  gt::tab_header(title = "Rate Ratios") %>%
-  gt::tab_style(style = list(gt::cell_fill(color = "#7cb9e8"),
-                             gt::cell_text(weight = "bold")),
-                locations = gt::cells_body(columns = Year))%>%
-  gt::tab_style(style = list(gt::cell_fill(color = "#F1EB9C"),
-                             gt::cell_text(weight = "bold")), 
-                locations = gt::cells_body(columns = c(black_white_rateratio,hispanic_white_rateratio,female_male_rateratio)))
+knitr::include_graphics(here("results","US_rates_byage.png"))
 ```
 
-@tbl-regsummarytable shows a full summary of the Regional data. 
+@fig-natplotrace shows line plot for national new diagnosis rates by race/ethnicity.
 
 ```{r}
-#| label: tbl-regsummarytable
-#| tbl-cap: "Regional data summary table."
+#| label: fig-natplotrace
+#| fig-cap: "National new diagnosis rates by race/ethnicity"
 #| echo: FALSE
-alldata<-readRDS(here("data", "processed_data", "allnewdx.rds"))
-regional<-alldata %>% filter(Geo %in% c("Northeast", "Midwest", "South", "West"))
-regional %>% gt::gt() %>% 
-  gt::tab_header(title = "Regional Data") %>%
-  gt::tab_style(style = list(gt::cell_fill(color = "#7cb9e8"),
-                             gt::cell_text(weight = "bold")),
-                locations = gt::cells_body(columns = Year))
+knitr::include_graphics(here("results","US_rates_byrace.png"))
 ```
 
-@fig-regplots shows an exploratory plot for regional overall new diagnosis rates with female-male rate ratios. 
+Trends by sex and age group are as expected. For sex and age, all rates have declined between 2008-2020 and groups with the highest incidence had the steepest declines over time, particularly after 2016. The remainder of this analysis will focus on trends and disparities by race/ethnicity.
+
+@fig-regplotrace shows a bubble plot comparing regional new diagnosis (log) rates by race/ethnicity. The color represents race/ethnicity and the size of the point represents the log of the new diagnosis rate. 
 
 ```{r}
-#| label: fig-regplots
-#| tbl-cap: "Regional plots"
+#| label: fig-regplotrace
+#| fig-cap: "Regional new diagnosis rate (log) by race/ethnicity"
 #| echo: FALSE
-alldata<-readRDS(here("data", "processed_data", "allnewdx.rds"))
-regional<-alldata %>% filter(Geo %in% c("Northeast", "Midwest", "South", "West"))
-ggplot(regional, aes(x=Year, y=log(Overall_Rate), size=log(female_male_rateratio), color=Geo)) +
-    geom_point(alpha=0.7) + scale_x_continuous(breaks=c(2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020)) +
-  ggtitle("Regional New Diagnosis Rates with Female-Male Rate Ratios") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  xlab("Year") + ylab("Log of Overall NewDx Rate")
+knitr::include_graphics(here("results","racerates_region.png"))
 ```
 
-
-## Basic statistical analysis
-
-_To get some further insight into your data, if reasonable you could compute simple statistics (e.g. simple models with 1 predictor) to look for associations between your outcome(s) and each individual predictor variable. Though note that unless you pre-specified the outcome and main exposure, any "p<0.05 means statistical significance" interpretation is not valid._
-
-
-@fig-result shows a scatterplot figure produced by one of the R scripts.
+@fig-natplotraceratios shows national plot of log race ratios for new diagnoses (White=ref).
 
 ```{r}
-#| label: fig-result
-#| fig-cap: "Height and weight stratified by sex."
+#| label: fig-natplotraceratios
+#| fig-cap: "National race ratios"
 #| echo: FALSE
-#knitr::include_graphics(here("results","height_weight_stratified.png"))
+knitr::include_graphics(here("results","racerates_allUS.png"))
 ```
 
-
-## Full analysis
-
-_Use one or several suitable statistical/machine learning methods to analyze your data and to produce meaningful figures, tables, etc. This might again be code that is best placed in one or several separate R scripts that need to be well documented. You want the code to produce figures and data ready for display as tables, and save those. Then you load them here._
-
-Example @tbl-resulttable2 shows a summary of a linear model fit.
+@fig-natplotdiffbwh shows national plot of White-Black and White-Hispanic rate differences by year.
 
 ```{r}
-#| label: tbl-resulttable2
-#| tbl-cap: "Linear model fit table."
+#| label: fig-natplotdiffbwh
+#| fig-cap: "White-Black and White-Hispanic differences in national new diagnosis rate"
 #| echo: FALSE
-#resulttable2 = readRDS(here("results","resulttable2.rds"))
-#knitr::kable(resulttable2)
+knitr::include_graphics(here("results","nat_diff_bwh.png"))
+```
+
+@tbl-allrates shows a full summary of new diagnosis rates for all US by group.
+
+```{r}
+#| label: tbl-allrates
+#| tbl-cap: "All US New diagnosis Rates"
+#| echo: FALSE
+resulttable=readRDS(here("results","all_us_rates.rds"))
+kable(resulttable,caption = "All US New Diagnosis Rates", col.names=c("Year", "Overall", "Male", "Female", "Black", "White", "Hispanic", "Asian", "American Indian/Alaska Native", "Multiracial", "Native Hawaiian/Pacific Islander", "Age 13-24", "Age 25-34", "Age 35-44", "Age 45-54", "Age 55+"), align="rc") %>% 
+  row_spec(row = 0, color = "white", background = "#004987") %>% kable_styling(full_width=T, bootstrap_options = "striped", font_size=10)  
+```
+
+## Statistical analysis
+
+@tbl-allaapc shows a summary of average annual percent change (AAPC) for each subgroup and geographic region.
+
+```{r}
+#| label: tbl-allaapc
+#| tbl-cap: "All AAPCs"
+#| echo: FALSE
+resulttable=readRDS(here("results","aapc_all_results.rds"))
+kable(resulttable,caption = "All AAPC Results", 
+      col.names=c("Stratification", "Geographic Area", "AAPC", "AAPC_lCI", "AAPC_uCI", "p-value"),      align="rc") %>% 
+  row_spec(row = 0, color = "white", background = "#004987") %>% kable_styling(full_width=T, bootstrap_options = "striped", font_size=10) %>% 
+  pack_rows("Overall", 1, 5) %>%
+  pack_rows("Female", 6, 10) %>%
+  pack_rows("Male", 11, 15) %>%
+  pack_rows("Age 13-24", 16, 20) %>%
+  pack_rows("Age 25-34", 21, 25) %>%
+  pack_rows("Age 35-44", 26, 30)  %>%
+  pack_rows("Age 45-54", 31, 35)  %>%
+  pack_rows("Age 55+", 36, 40)  %>%
+  pack_rows("American Indian/Alaska Native", 41, 44) %>%
+  pack_rows("Asian", 45, 49) %>%
+  pack_rows("Black", 50, 54) %>%
+  pack_rows("Hispanic", 55, 59) %>%
+  pack_rows("Multiracial", 60, 64) %>%
+  pack_rows("Native Hawaiian/Pacific Islander", 65, 67) %>%
+  pack_rows("White", 68, 72) %>%
+  pack_rows("AIAN-White", 73, 76) %>%
+  pack_rows("Asian-White", 77, 81) %>%
+  pack_rows("Black-White", 82, 86) %>%
+  pack_rows("Hispanic-White", 87, 91) %>%
+  pack_rows("Multi-White", 92, 96) %>%
+  pack_rows("NHPI-White", 97, 99) 
+```
+
+@tbl-allapc shows a full summary of annual percent change (APC) for each segment of time within each subgroup and geographic region.
+
+```{r}
+#| label: tbl-allapc
+#| tbl-cap: "All APCs"
+#| echo: FALSE
+resulttable=readRDS(here("results","apc_all_results.rds"))
+kable(resulttable,caption = "All APC Results", align="rc") %>% 
+  row_spec(row = 0, color = "white", background = "#004987") %>% kable_styling(full_width=T, bootstrap_options = "striped", font_size=10) %>% 
+  pack_rows("Overall", 1, 15) %>%
+  pack_rows("Female", 16, 24) %>%
+  pack_rows("Male", 25, 32) %>%
+  pack_rows("Age 13-24", 33, 41) %>%
+  pack_rows("Age 25-34", 42, 54) %>%
+  pack_rows("Age 35-44", 55, 63)  %>%
+  pack_rows("Age 45-54", 64, 70)  %>%
+  pack_rows("Age 55+", 71, 76)  %>%
+  pack_rows("American Indian/Alaska Native", 77, 80) %>%
+  pack_rows("Asian", 81, 90) %>%
+  pack_rows("Black", 91, 102) %>%
+  pack_rows("Hispanic", 103, 113) %>%
+  pack_rows("Multiracial", 114, 120) %>%
+  pack_rows("Native Hawaiian/Pacific Islander", 121, 123) %>%
+  pack_rows("White", 124, 130) %>%
+  pack_rows("AIAN-White", 131, 134) %>%
+  pack_rows("Asian-White", 135, 142) %>%
+  pack_rows("Black-White", 143, 147) %>%
+  pack_rows("Hispanic-White", 148, 156) %>%
+  pack_rows("Multi-White", 157, 165) %>%
+  pack_rows("NHPI-White", 166, 168) 
+```
+
+@fig-natplotbwhjpoint shows national plot of new diagnosis Joinpoints for race/ethnicity (Black, White, Hispanic).
+
+```{r}
+#| label: fig-natplotbwhjpoint
+#| fig-cap: "National Joinpoint results comparing Black, White, Hispanic"
+#| echo: FALSE
+knitr::include_graphics(here("results","raceBWH_joinpoints_allUS.png"))
+```
+
+@fig-natplotraceratioaapc shows regional plot of new diagnosis AAPCs for race/ethnicity.
+
+```{r}
+#| label: fig-natplotraceratioaapc
+#| fig-cap: "Regional Joinpoint AAPC results by race/ethnicity"
+#| echo: FALSE
+knitr::include_graphics(here("results","raceratio_byregion.png"))
 ```
 
 
@@ -231,18 +255,10 @@ _Discuss what you perceive as strengths and limitations of your analysis._
 ## Conclusions
 _What are the main take-home messages?_
 
-_Include citations in your Rmd file using bibtex, the list of references will automatically be placed at the end_
-
-This paper [] discusses types of analyses. 
-
-These papers [] are good examples of papers published using a fully reproducible setup similar to the one shown in this template. 
-
-Note that this cited reference will show up at the end of the document, the reference formatting is determined by the CSL file specified in the YAML header. Many more style files for almost any journal [are available](https://www.zotero.org/styles). You also specify the location of your bibtex reference file in the YAML. You can call your reference file anything you like, I just used the generic word `references.bib` but giving it a more descriptive name is probably better.
-
 
 {{< pagebreak >}}
 
-# References
+## References
 
 
 

@@ -1,14 +1,8 @@
-This folder contains code to do some simple analysis on the processed/cleaned data.
+About the Files:
 
+`exploratory_analysis.qmd`: This Quarto file loads the processed, cleaned data, and does some exploratory analysis of the variables prior to any statistical methods.
 
-There is a Quarto file which does some exploratory data analysis by creating a few tables and figures.
+`joinpoint_analysis.R`: This R script file loads the processed, cleaned data, does some analysis and saves the results. 
+NOTE: This analysis uses a proprietary software package available from the NIH (https://surveillance.cancer.gov/joinpoint/). The R callable software must be requested from NIH and installed on the users local machine. The "nih.joinpoint"" package referenced here will NOT work unless the R callable version of the software is installed on the users machine. Because of this and some issues with specific R callable options, the desktop version of the software was used for some analyses. All result tables from the external joinpoint analyses are available in the data/processed_data folder so tables and plots can be reproduced.
 
-An R script does some simple statistical model fitting.
-
-I'm only showing code here in way where the code is included in the Quarto file, and the R script is by itself and not combined with a Quarto file. 
-
-As described in the `processing_code` materials, I currently prefer the approach of having R code in a separate file and pulling it into a Quarto file.
-
-So if I were to re-do this, I would have 2 R scripts that can run by themselves, and 2 Quarto files that pull in the code for easier combination of text and code.
-I just haven't gotten around to writing them. Feel free to redo and send a pull request on GitHub :)
-
+`analysis.qmd`: This Quarto file loads the processed, cleaned data, and produces tables and figures for the final analysis. 

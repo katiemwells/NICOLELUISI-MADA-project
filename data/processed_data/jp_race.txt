@@ -1,0 +1,456 @@
+"Race"	"Geo"	"Year"	"Rate"
+"American Indian/Alaska Native"	"Midwest"	2008	6
+"American Indian/Alaska Native"	"Midwest"	2009	4
+"American Indian/Alaska Native"	"Midwest"	2010	6
+"American Indian/Alaska Native"	"Midwest"	2011	4
+"American Indian/Alaska Native"	"Midwest"	2012	7
+"American Indian/Alaska Native"	"Midwest"	2013	6
+"American Indian/Alaska Native"	"Midwest"	2014	6
+"American Indian/Alaska Native"	"Midwest"	2015	5
+"American Indian/Alaska Native"	"Midwest"	2016	5
+"American Indian/Alaska Native"	"Midwest"	2017	6
+"American Indian/Alaska Native"	"Midwest"	2018	7
+"American Indian/Alaska Native"	"Midwest"	2019	9
+"American Indian/Alaska Native"	"Midwest"	2020	10
+"American Indian/Alaska Native"	"Northeast"	2008	2
+"American Indian/Alaska Native"	"Northeast"	2009	4
+"American Indian/Alaska Native"	"Northeast"	2010	4
+"American Indian/Alaska Native"	"Northeast"	2011	0
+"American Indian/Alaska Native"	"Northeast"	2012	7
+"American Indian/Alaska Native"	"Northeast"	2013	3
+"American Indian/Alaska Native"	"Northeast"	2014	7
+"American Indian/Alaska Native"	"Northeast"	2015	6
+"American Indian/Alaska Native"	"Northeast"	2016	8
+"American Indian/Alaska Native"	"Northeast"	2017	4
+"American Indian/Alaska Native"	"Northeast"	2018	6
+"American Indian/Alaska Native"	"Northeast"	2019	4
+"American Indian/Alaska Native"	"Northeast"	2020	6
+"American Indian/Alaska Native"	"South"	2008	5
+"American Indian/Alaska Native"	"South"	2009	5
+"American Indian/Alaska Native"	"South"	2010	6
+"American Indian/Alaska Native"	"South"	2011	6
+"American Indian/Alaska Native"	"South"	2012	6
+"American Indian/Alaska Native"	"South"	2013	5
+"American Indian/Alaska Native"	"South"	2014	6
+"American Indian/Alaska Native"	"South"	2015	8
+"American Indian/Alaska Native"	"South"	2016	8
+"American Indian/Alaska Native"	"South"	2017	7
+"American Indian/Alaska Native"	"South"	2018	6
+"American Indian/Alaska Native"	"South"	2019	9
+"American Indian/Alaska Native"	"South"	2020	7
+"American Indian/Alaska Native"	"United States"	2008	7.6
+"American Indian/Alaska Native"	"United States"	2009	7.2
+"American Indian/Alaska Native"	"United States"	2010	8.2
+"American Indian/Alaska Native"	"United States"	2011	7.1
+"American Indian/Alaska Native"	"United States"	2012	8.6
+"American Indian/Alaska Native"	"United States"	2013	7.5
+"American Indian/Alaska Native"	"United States"	2014	9
+"American Indian/Alaska Native"	"United States"	2015	8.5
+"American Indian/Alaska Native"	"United States"	2016	11.1
+"American Indian/Alaska Native"	"United States"	2017	10.2
+"American Indian/Alaska Native"	"United States"	2018	8.7
+"American Indian/Alaska Native"	"United States"	2019	10.2
+"American Indian/Alaska Native"	"United States"	2020	9.9
+"American Indian/Alaska Native"	"West"	2008	11
+"American Indian/Alaska Native"	"West"	2009	10
+"American Indian/Alaska Native"	"West"	2010	11
+"American Indian/Alaska Native"	"West"	2011	10
+"American Indian/Alaska Native"	"West"	2012	11
+"American Indian/Alaska Native"	"West"	2013	11
+"American Indian/Alaska Native"	"West"	2014	13
+"American Indian/Alaska Native"	"West"	2015	11
+"American Indian/Alaska Native"	"West"	2016	16
+"American Indian/Alaska Native"	"West"	2017	15
+"American Indian/Alaska Native"	"West"	2018	12
+"American Indian/Alaska Native"	"West"	2019	12
+"American Indian/Alaska Native"	"West"	2020	13
+"Asian"	"Midwest"	2008	5
+"Asian"	"Midwest"	2009	5
+"Asian"	"Midwest"	2010	4
+"Asian"	"Midwest"	2011	5
+"Asian"	"Midwest"	2012	3
+"Asian"	"Midwest"	2013	5
+"Asian"	"Midwest"	2014	5
+"Asian"	"Midwest"	2015	6
+"Asian"	"Midwest"	2016	5
+"Asian"	"Midwest"	2017	5
+"Asian"	"Midwest"	2018	4
+"Asian"	"Midwest"	2019	4
+"Asian"	"Midwest"	2020	4
+"Asian"	"Northeast"	2008	6
+"Asian"	"Northeast"	2009	6
+"Asian"	"Northeast"	2010	4
+"Asian"	"Northeast"	2011	5
+"Asian"	"Northeast"	2012	5
+"Asian"	"Northeast"	2013	4
+"Asian"	"Northeast"	2014	5
+"Asian"	"Northeast"	2015	5
+"Asian"	"Northeast"	2016	6
+"Asian"	"Northeast"	2017	5
+"Asian"	"Northeast"	2018	6
+"Asian"	"Northeast"	2019	4
+"Asian"	"Northeast"	2020	3
+"Asian"	"South"	2008	6
+"Asian"	"South"	2009	5
+"Asian"	"South"	2010	5
+"Asian"	"South"	2011	6
+"Asian"	"South"	2012	6
+"Asian"	"South"	2013	6
+"Asian"	"South"	2014	6
+"Asian"	"South"	2015	7
+"Asian"	"South"	2016	6
+"Asian"	"South"	2017	6
+"Asian"	"South"	2018	6
+"Asian"	"South"	2019	5
+"Asian"	"South"	2020	4
+"Asian"	"United States"	2008	5.8
+"Asian"	"United States"	2009	5.7
+"Asian"	"United States"	2010	5.2
+"Asian"	"United States"	2011	5.4
+"Asian"	"United States"	2012	5.6
+"Asian"	"United States"	2013	5.5
+"Asian"	"United States"	2014	6.2
+"Asian"	"United States"	2015	6.2
+"Asian"	"United States"	2016	6.1
+"Asian"	"United States"	2017	5.9
+"Asian"	"United States"	2018	5.4
+"Asian"	"United States"	2019	4.5
+"Asian"	"United States"	2020	3.8
+"Asian"	"West"	2008	6
+"Asian"	"West"	2009	6
+"Asian"	"West"	2010	6
+"Asian"	"West"	2011	6
+"Asian"	"West"	2012	6
+"Asian"	"West"	2013	6
+"Asian"	"West"	2014	7
+"Asian"	"West"	2015	7
+"Asian"	"West"	2016	6
+"Asian"	"West"	2017	7
+"Asian"	"West"	2018	5
+"Asian"	"West"	2019	5
+"Asian"	"West"	2020	4
+"Black"	"Midwest"	2008	48
+"Black"	"Midwest"	2009	48
+"Black"	"Midwest"	2010	46
+"Black"	"Midwest"	2011	44
+"Black"	"Midwest"	2012	44
+"Black"	"Midwest"	2013	44
+"Black"	"Midwest"	2014	42
+"Black"	"Midwest"	2015	42
+"Black"	"Midwest"	2016	43
+"Black"	"Midwest"	2017	42
+"Black"	"Midwest"	2018	40
+"Black"	"Midwest"	2019	39
+"Black"	"Midwest"	2020	34
+"Black"	"Northeast"	2008	76
+"Black"	"Northeast"	2009	67
+"Black"	"Northeast"	2010	63
+"Black"	"Northeast"	2011	59
+"Black"	"Northeast"	2012	57
+"Black"	"Northeast"	2013	50
+"Black"	"Northeast"	2014	52
+"Black"	"Northeast"	2015	48
+"Black"	"Northeast"	2016	45
+"Black"	"Northeast"	2017	45
+"Black"	"Northeast"	2018	41
+"Black"	"Northeast"	2019	40
+"Black"	"Northeast"	2020	32
+"Black"	"South"	2008	80
+"Black"	"South"	2009	74
+"Black"	"South"	2010	69
+"Black"	"South"	2011	65
+"Black"	"South"	2012	60
+"Black"	"South"	2013	57
+"Black"	"South"	2014	57
+"Black"	"South"	2015	57
+"Black"	"South"	2016	55
+"Black"	"South"	2017	53
+"Black"	"South"	2018	51
+"Black"	"South"	2019	50
+"Black"	"South"	2020	40
+"Black"	"United States"	2008	71
+"Black"	"United States"	2009	66
+"Black"	"United States"	2010	61.9
+"Black"	"United States"	2011	58.4
+"Black"	"United States"	2012	55.1
+"Black"	"United States"	2013	52.2
+"Black"	"United States"	2014	52.4
+"Black"	"United States"	2015	51.7
+"Black"	"United States"	2016	50.6
+"Black"	"United States"	2017	48.6
+"Black"	"United States"	2018	46.7
+"Black"	"United States"	2019	45.5
+"Black"	"United States"	2020	37.4
+"Black"	"West"	2008	54
+"Black"	"West"	2009	49
+"Black"	"West"	2010	48
+"Black"	"West"	2011	45
+"Black"	"West"	2012	42
+"Black"	"West"	2013	40
+"Black"	"West"	2014	43
+"Black"	"West"	2015	44
+"Black"	"West"	2016	46
+"Black"	"West"	2017	42
+"Black"	"West"	2018	44
+"Black"	"West"	2019	42
+"Black"	"West"	2020	35
+"Hispanic"	"Midwest"	2008	22
+"Hispanic"	"Midwest"	2009	21
+"Hispanic"	"Midwest"	2010	19
+"Hispanic"	"Midwest"	2011	19
+"Hispanic"	"Midwest"	2012	19
+"Hispanic"	"Midwest"	2013	19
+"Hispanic"	"Midwest"	2014	19
+"Hispanic"	"Midwest"	2015	17
+"Hispanic"	"Midwest"	2016	17
+"Hispanic"	"Midwest"	2017	17
+"Hispanic"	"Midwest"	2018	16
+"Hispanic"	"Midwest"	2019	16
+"Hispanic"	"Midwest"	2020	12
+"Hispanic"	"Northeast"	2008	51
+"Hispanic"	"Northeast"	2009	49
+"Hispanic"	"Northeast"	2010	42
+"Hispanic"	"Northeast"	2011	38
+"Hispanic"	"Northeast"	2012	37
+"Hispanic"	"Northeast"	2013	35
+"Hispanic"	"Northeast"	2014	34
+"Hispanic"	"Northeast"	2015	32
+"Hispanic"	"Northeast"	2016	31
+"Hispanic"	"Northeast"	2017	30
+"Hispanic"	"Northeast"	2018	27
+"Hispanic"	"Northeast"	2019	26
+"Hispanic"	"Northeast"	2020	20
+"Hispanic"	"South"	2008	30
+"Hispanic"	"South"	2009	28
+"Hispanic"	"South"	2010	26
+"Hispanic"	"South"	2011	26
+"Hispanic"	"South"	2012	25
+"Hispanic"	"South"	2013	24
+"Hispanic"	"South"	2014	25
+"Hispanic"	"South"	2015	26
+"Hispanic"	"South"	2016	26
+"Hispanic"	"South"	2017	25
+"Hispanic"	"South"	2018	25
+"Hispanic"	"South"	2019	24
+"Hispanic"	"South"	2020	19
+"Hispanic"	"United States"	2008	31.3
+"Hispanic"	"United States"	2009	29.3
+"Hispanic"	"United States"	2010	26.8
+"Hispanic"	"United States"	2011	25.4
+"Hispanic"	"United States"	2012	25.1
+"Hispanic"	"United States"	2013	24
+"Hispanic"	"United States"	2014	24.7
+"Hispanic"	"United States"	2015	24.3
+"Hispanic"	"United States"	2016	24.2
+"Hispanic"	"United States"	2017	23.1
+"Hispanic"	"United States"	2018	22.6
+"Hispanic"	"United States"	2019	21.9
+"Hispanic"	"United States"	2020	17.3
+"Hispanic"	"West"	2008	21
+"Hispanic"	"West"	2009	19
+"Hispanic"	"West"	2010	18
+"Hispanic"	"West"	2011	18
+"Hispanic"	"West"	2012	18
+"Hispanic"	"West"	2013	17
+"Hispanic"	"West"	2014	18
+"Hispanic"	"West"	2015	18
+"Hispanic"	"West"	2016	19
+"Hispanic"	"West"	2017	18
+"Hispanic"	"West"	2018	18
+"Hispanic"	"West"	2019	18
+"Hispanic"	"West"	2020	15
+"Multiracial"	"Midwest"	2008	64
+"Multiracial"	"Midwest"	2009	69
+"Multiracial"	"Midwest"	2010	51
+"Multiracial"	"Midwest"	2011	47
+"Multiracial"	"Midwest"	2012	47
+"Multiracial"	"Midwest"	2013	39
+"Multiracial"	"Midwest"	2014	32
+"Multiracial"	"Midwest"	2015	29
+"Multiracial"	"Midwest"	2016	29
+"Multiracial"	"Midwest"	2017	26
+"Multiracial"	"Midwest"	2018	21
+"Multiracial"	"Midwest"	2019	17
+"Multiracial"	"Midwest"	2020	13
+"Multiracial"	"Northeast"	2008	164
+"Multiracial"	"Northeast"	2009	151
+"Multiracial"	"Northeast"	2010	101
+"Multiracial"	"Northeast"	2011	92
+"Multiracial"	"Northeast"	2012	89
+"Multiracial"	"Northeast"	2013	91
+"Multiracial"	"Northeast"	2014	71
+"Multiracial"	"Northeast"	2015	63
+"Multiracial"	"Northeast"	2016	52
+"Multiracial"	"Northeast"	2017	43
+"Multiracial"	"Northeast"	2018	35
+"Multiracial"	"Northeast"	2019	35
+"Multiracial"	"Northeast"	2020	20
+"Multiracial"	"South"	2008	145
+"Multiracial"	"South"	2009	126
+"Multiracial"	"South"	2010	101
+"Multiracial"	"South"	2011	89
+"Multiracial"	"South"	2012	82
+"Multiracial"	"South"	2013	75
+"Multiracial"	"South"	2014	70
+"Multiracial"	"South"	2015	59
+"Multiracial"	"South"	2016	52
+"Multiracial"	"South"	2017	44
+"Multiracial"	"South"	2018	38
+"Multiracial"	"South"	2019	34
+"Multiracial"	"South"	2020	24
+"Multiracial"	"United States"	2008	90.9
+"Multiracial"	"United States"	2009	83.5
+"Multiracial"	"United States"	2010	66.1
+"Multiracial"	"United States"	2011	58.1
+"Multiracial"	"United States"	2012	55.6
+"Multiracial"	"United States"	2013	51.9
+"Multiracial"	"United States"	2014	45.7
+"Multiracial"	"United States"	2015	40.4
+"Multiracial"	"United States"	2016	35.8
+"Multiracial"	"United States"	2017	30
+"Multiracial"	"United States"	2018	25.7
+"Multiracial"	"United States"	2019	22.7
+"Multiracial"	"United States"	2020	15.8
+"Multiracial"	"West"	2008	34
+"Multiracial"	"West"	2009	32
+"Multiracial"	"West"	2010	31
+"Multiracial"	"West"	2011	25
+"Multiracial"	"West"	2012	24
+"Multiracial"	"West"	2013	23
+"Multiracial"	"West"	2014	21
+"Multiracial"	"West"	2015	21
+"Multiracial"	"West"	2016	18
+"Multiracial"	"West"	2017	15
+"Multiracial"	"West"	2018	14
+"Multiracial"	"West"	2019	10
+"Multiracial"	"West"	2020	8
+"Native Hawaiian/Pacific Islander"	"Midwest"	2008	10
+"Native Hawaiian/Pacific Islander"	"Midwest"	2009	10
+"Native Hawaiian/Pacific Islander"	"Midwest"	2010	5
+"Native Hawaiian/Pacific Islander"	"Midwest"	2011	0
+"Native Hawaiian/Pacific Islander"	"Midwest"	2012	9
+"Native Hawaiian/Pacific Islander"	"Midwest"	2013	0
+"Native Hawaiian/Pacific Islander"	"Midwest"	2014	4
+"Native Hawaiian/Pacific Islander"	"Midwest"	2015	12
+"Native Hawaiian/Pacific Islander"	"Midwest"	2016	8
+"Native Hawaiian/Pacific Islander"	"Midwest"	2017	8
+"Native Hawaiian/Pacific Islander"	"Midwest"	2018	7
+"Native Hawaiian/Pacific Islander"	"Midwest"	2019	34
+"Native Hawaiian/Pacific Islander"	"Midwest"	2020	16
+"Native Hawaiian/Pacific Islander"	"Northeast"	2008	0
+"Native Hawaiian/Pacific Islander"	"Northeast"	2009	17
+"Native Hawaiian/Pacific Islander"	"Northeast"	2010	39
+"Native Hawaiian/Pacific Islander"	"Northeast"	2011	6
+"Native Hawaiian/Pacific Islander"	"Northeast"	2012	12
+"Native Hawaiian/Pacific Islander"	"Northeast"	2013	12
+"Native Hawaiian/Pacific Islander"	"Northeast"	2014	18
+"Native Hawaiian/Pacific Islander"	"Northeast"	2015	6
+"Native Hawaiian/Pacific Islander"	"Northeast"	2016	17
+"Native Hawaiian/Pacific Islander"	"Northeast"	2017	28
+"Native Hawaiian/Pacific Islander"	"Northeast"	2018	17
+"Native Hawaiian/Pacific Islander"	"Northeast"	2019	11
+"Native Hawaiian/Pacific Islander"	"Northeast"	2020	22
+"Native Hawaiian/Pacific Islander"	"South"	2008	23
+"Native Hawaiian/Pacific Islander"	"South"	2009	12
+"Native Hawaiian/Pacific Islander"	"South"	2010	12
+"Native Hawaiian/Pacific Islander"	"South"	2011	14
+"Native Hawaiian/Pacific Islander"	"South"	2012	12
+"Native Hawaiian/Pacific Islander"	"South"	2013	10
+"Native Hawaiian/Pacific Islander"	"South"	2014	9
+"Native Hawaiian/Pacific Islander"	"South"	2015	24
+"Native Hawaiian/Pacific Islander"	"South"	2016	7
+"Native Hawaiian/Pacific Islander"	"South"	2017	14
+"Native Hawaiian/Pacific Islander"	"South"	2018	13
+"Native Hawaiian/Pacific Islander"	"South"	2019	18
+"Native Hawaiian/Pacific Islander"	"South"	2020	16
+"Native Hawaiian/Pacific Islander"	"United States"	2008	13.1
+"Native Hawaiian/Pacific Islander"	"United States"	2009	12.3
+"Native Hawaiian/Pacific Islander"	"United States"	2010	11.5
+"Native Hawaiian/Pacific Islander"	"United States"	2011	11.7
+"Native Hawaiian/Pacific Islander"	"United States"	2012	9.5
+"Native Hawaiian/Pacific Islander"	"United States"	2013	10
+"Native Hawaiian/Pacific Islander"	"United States"	2014	8.9
+"Native Hawaiian/Pacific Islander"	"United States"	2015	14
+"Native Hawaiian/Pacific Islander"	"United States"	2016	8.2
+"Native Hawaiian/Pacific Islander"	"United States"	2017	10.6
+"Native Hawaiian/Pacific Islander"	"United States"	2018	12.7
+"Native Hawaiian/Pacific Islander"	"United States"	2019	13.4
+"Native Hawaiian/Pacific Islander"	"United States"	2020	13
+"Native Hawaiian/Pacific Islander"	"West"	2008	13
+"Native Hawaiian/Pacific Islander"	"West"	2009	12
+"Native Hawaiian/Pacific Islander"	"West"	2010	10
+"Native Hawaiian/Pacific Islander"	"West"	2011	12
+"Native Hawaiian/Pacific Islander"	"West"	2012	9
+"Native Hawaiian/Pacific Islander"	"West"	2013	11
+"Native Hawaiian/Pacific Islander"	"West"	2014	9
+"Native Hawaiian/Pacific Islander"	"West"	2015	13
+"Native Hawaiian/Pacific Islander"	"West"	2016	8
+"Native Hawaiian/Pacific Islander"	"West"	2017	9
+"Native Hawaiian/Pacific Islander"	"West"	2018	13
+"Native Hawaiian/Pacific Islander"	"West"	2019	11
+"Native Hawaiian/Pacific Islander"	"West"	2020	12
+"White"	"Midwest"	2008	4
+"White"	"Midwest"	2009	4
+"White"	"Midwest"	2010	4
+"White"	"Midwest"	2011	4
+"White"	"Midwest"	2012	4
+"White"	"Midwest"	2013	4
+"White"	"Midwest"	2014	4
+"White"	"Midwest"	2015	4
+"White"	"Midwest"	2016	4
+"White"	"Midwest"	2017	4
+"White"	"Midwest"	2018	4
+"White"	"Midwest"	2019	4
+"White"	"Midwest"	2020	3
+"White"	"Northeast"	2008	6
+"White"	"Northeast"	2009	5
+"White"	"Northeast"	2010	6
+"White"	"Northeast"	2011	5
+"White"	"Northeast"	2012	5
+"White"	"Northeast"	2013	5
+"White"	"Northeast"	2014	5
+"White"	"Northeast"	2015	4
+"White"	"Northeast"	2016	4
+"White"	"Northeast"	2017	4
+"White"	"Northeast"	2018	4
+"White"	"Northeast"	2019	3
+"White"	"Northeast"	2020	3
+"White"	"South"	2008	9
+"White"	"South"	2009	8
+"White"	"South"	2010	8
+"White"	"South"	2011	8
+"White"	"South"	2012	8
+"White"	"South"	2013	7
+"White"	"South"	2014	7
+"White"	"South"	2015	7
+"White"	"South"	2016	7
+"White"	"South"	2017	7
+"White"	"South"	2018	7
+"White"	"South"	2019	7
+"White"	"South"	2020	6
+"White"	"United States"	2008	7.3
+"White"	"United States"	2009	6.8
+"White"	"United States"	2010	6.6
+"White"	"United States"	2011	6.3
+"White"	"United States"	2012	6.3
+"White"	"United States"	2013	6
+"White"	"United States"	2014	6
+"White"	"United States"	2015	5.9
+"White"	"United States"	2016	5.8
+"White"	"United States"	2017	5.6
+"White"	"United States"	2018	5.5
+"White"	"United States"	2019	5.3
+"White"	"United States"	2020	4.6
+"White"	"West"	2008	10
+"White"	"West"	2009	9
+"White"	"West"	2010	9
+"White"	"West"	2011	8
+"White"	"West"	2012	8
+"White"	"West"	2013	7
+"White"	"West"	2014	8
+"White"	"West"	2015	7
+"White"	"West"	2016	7
+"White"	"West"	2017	7
+"White"	"West"	2018	7
+"White"	"West"	2019	6
+"White"	"West"	2020	6

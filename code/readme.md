@@ -1,9 +1,5 @@
-Place your various R or Rmd scripts in the appropriate folders.
+About the Folders:
 
-You can either have fewer large scripts, or multiple scripts that do only specific actions. Those can be R scripts or Rmd files. In either case, document the scripts and what goes on in them so well that someone else (including future you) can easily figure out what is happening.
+Sub-folder `processing_code` contains R script `processingcode.R` [#1] which reads in the raw data files, performs data cleaning tasks, and prepares various output files for later use. This R file is the first to run in the series.
 
-The scripts should load the appropriate data (e.g. raw or processed), perform actions, and save results (e.g. processed data, figures, computed values) in the appropriate folders. Document somewhere what inputs each script takes and where output is placed. 
-
-If scripts need to be run in a specific order, document this. Either as comments in the script, or in a separate text file such as this readme file. Ideally of course in both locations.
-
-Depending on your specific project, you might want to have further sub-folders.
+Sub-folder `analysis_code` contains several files for the analysis work. The Quarto file `exploratory_analysis.qmd` [#2] does some exploratory analysis of the variables prior to any statistical methods. The R script `joinpoint_analysis.R` [#3] does some statistical analysis and saves the results (see notes re: some limitations with repeating). The Quarto file `analysis.qmd` [#4] produces tables and figures for the final analysis. 

@@ -1,18 +1,8 @@
-The folders inside this folder should contain all data at various stages.
+About the Folders:
 
-This data is being loaded/manipulated/changed/saved with code from the `code` folders.
+The sub-folder `raw_data` contains source data downloaded from AIDSVu (sub-folder `AIDSVu`). Subfolders within the `AIDSVu` folder are separated by geographic area (`National/NewDx`, `Region/NewDx`, `State/NewDx`). Note that state-level analyses are not included in this project but keeping these files handy for later. 
 
-You should place the raw data in the `raw_data` folder and not edit it. Ever!
-
-Ideally, load the raw data into R and do all changes there with code, so everything is automatically reproducible and documented.
-
-Sometimes, you need to edit the files in the format you got. For instance, Excel files are sometimes so poorly formatted that it's close to impossible to read them into R, or the persons you got the data from used color to code some information, which of course won't import into R. In those cases, you might have to make modifications in a software other than R. If you need to make edits in whatever format you got the data (e.g. Excel), make a copy and place those copies in a separate folder, AND ONLY EDIT THOSE COPIES. Also, write down somewhere the edits you made. 
-
-Add as many sub-folders as suitable. If you only have a single processing step, one sub-folder for processed data is enough. If you have multiple stages of cleaning and processing, additional sub-folders might be useful. Adjust based on the complexity of your project.
-
-I suggest you save your processed and cleaned data as RDS or RDA/Rdata files. This preserves coding like factors, characters, numeric, etc. If you save as CSV, that information would get lost.
-However, CSV is better for sharing with others since it's plain text. If you do CSV, you might want to write down somewhere what each variable is.
-
-See here for some suggestions on how to store your processed data:
-
-http://www.sthda.com/english/wiki/saving-data-into-r-data-format-rds-and-rdata
+The sub-folder `processed_data` contains all processed data files used throughout the project. 
+- The `allnewdx.rds` file contains the cleaned and combined data processed by the `processingcode.R` script. 
+- The `.txt` files that begin with `"jp_"` are subsets reformatted and exported with the `processingcode.R` script for use in the Joinpoint program. 
+- The `.xlsx` files that begin with `"djp_"` are data files processed by the desktop version of the external Joinpoint program. These files contain the results from the Joinpoint analysis in various sheets by type. The files are read in to the `analysis.qmd` file to produce tables and figures. 

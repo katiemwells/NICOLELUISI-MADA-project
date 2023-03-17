@@ -1,0 +1,66 @@
+"Overall"	"Geo"	"Year"	"Rate"
+"Overall"	"Midwest"	2008	10
+"Overall"	"Midwest"	2009	10
+"Overall"	"Midwest"	2010	10
+"Overall"	"Midwest"	2011	10
+"Overall"	"Midwest"	2012	10
+"Overall"	"Midwest"	2013	9
+"Overall"	"Midwest"	2014	9
+"Overall"	"Midwest"	2015	9
+"Overall"	"Midwest"	2016	9
+"Overall"	"Midwest"	2017	9
+"Overall"	"Midwest"	2018	9
+"Overall"	"Midwest"	2019	8
+"Overall"	"Midwest"	2020	7
+"Overall"	"Northeast"	2008	19
+"Overall"	"Northeast"	2009	18
+"Overall"	"Northeast"	2010	17
+"Overall"	"Northeast"	2011	16
+"Overall"	"Northeast"	2012	16
+"Overall"	"Northeast"	2013	15
+"Overall"	"Northeast"	2014	14
+"Overall"	"Northeast"	2015	14
+"Overall"	"Northeast"	2016	13
+"Overall"	"Northeast"	2017	13
+"Overall"	"Northeast"	2018	12
+"Overall"	"Northeast"	2019	11
+"Overall"	"Northeast"	2020	9
+"Overall"	"South"	2008	26
+"Overall"	"South"	2009	24
+"Overall"	"South"	2010	23
+"Overall"	"South"	2011	22
+"Overall"	"South"	2012	21
+"Overall"	"South"	2013	20
+"Overall"	"South"	2014	20
+"Overall"	"South"	2015	20
+"Overall"	"South"	2016	20
+"Overall"	"South"	2017	19
+"Overall"	"South"	2018	19
+"Overall"	"South"	2019	18
+"Overall"	"South"	2020	15
+"Overall"	"United States"	2008	18.9
+"Overall"	"United States"	2009	17.7
+"Overall"	"United States"	2010	16.8
+"Overall"	"United States"	2011	16
+"Overall"	"United States"	2012	15.6
+"Overall"	"United States"	2013	14.9
+"Overall"	"United States"	2014	15.1
+"Overall"	"United States"	2015	14.9
+"Overall"	"United States"	2016	14.6
+"Overall"	"United States"	2017	14.1
+"Overall"	"United States"	2018	13.7
+"Overall"	"United States"	2019	13.2
+"Overall"	"United States"	2020	10.9
+"Overall"	"West"	2008	15
+"Overall"	"West"	2009	14
+"Overall"	"West"	2010	13
+"Overall"	"West"	2011	12
+"Overall"	"West"	2012	12
+"Overall"	"West"	2013	12
+"Overall"	"West"	2014	13
+"Overall"	"West"	2015	12
+"Overall"	"West"	2016	12
+"Overall"	"West"	2017	12
+"Overall"	"West"	2018	12
+"Overall"	"West"	2019	11
+"Overall"	"West"	2020	10
