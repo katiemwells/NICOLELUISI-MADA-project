@@ -14,6 +14,9 @@ About the Files:
 `racerates_region.png` : This png file contains a plot of new diagnosis rates by Race/Ethnicity for all US.
 `raceratio_byregion.png` : This png file contains a plot of new diagnosis rate ratios by race/ethnicity for all US by region (White=ref).
 
+`Predict2022_BWratio.png` : This png file contains state-level predictions for Black-White Rate Ratios in 2022 based on Google Trend data for Search Term "HIV", organized by region. Latest actual 2020 rate ratio plotted in red to compare. 
+`Predict2022_HWratio.png` : This png file contains state-level predictions for Hispanic-White Rate Ratios in 2022 based on Google Trend data for Search Term "HIV", organized by region. Latest actual 2020 rate ratio plotted in red to compare. 
+
 
 About the Folders:
 

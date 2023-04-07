@@ -1,6 +1,6 @@
 ---
 title: "MADA 8060E Project"
-subtitle: "Trends in New HIV Diagnoses in the US, 2008-2022"
+subtitle: "Trends in New HIV Diagnoses in the US, 2008-2020"
 author: Nicole Luisi
 date: "`r Sys.Date()`"
 format:
@@ -30,12 +30,15 @@ library(ggpubr)
 
 # Summary/Abstract
 
-The purpose of this analysis is to analyze US trends in new HIV diagnoses over the past 10 years. Previous research by [Chapin-Bardales et al. (2017)](https://doi.org/10.1016/j.annepidem.2017.04.002) evaluated trends in AIDS diagnosis rates by race/ethnicity between 1984-2013. This analysis will focus on new HIV diagnoses between 2008-2022; subgroups will include region, age group, gender, and race/ethnicity. [@Chapin2017]
+The purpose of this analysis is to analyze US trends in new HIV diagnoses over the past 10 years (2008-2020) by region, age group, gender, and race/ethnicity. Joinpoint regression was used to identify significant trends and annual percent changes in new diagnoses rates, and trends for rate ratios were also used to assess disparities by race/ethnicity over time. Google Trend data from 2016-2020 for search term "HIV" was used to predict not yet released Black-White and Hispanic-White rate ratios for 2022. 
 
 # Introduction 
 
 ## General Background Information
-_Provide enough background on your topic that others can understand the why and how of your analysis_ 
+
+Previous research by [Chapin-Bardales et al. (2017)](https://doi.org/10.1016/j.annepidem.2017.04.002) evaluated trends in AIDS diagnosis rates by race/ethnicity between 1984-2013.
+
+[@Chapin2017] [@Sullivan2020] [@SULLIVAN2018833] [@FIELDS2021] [@BOSH2021] [@MCCREE2019] [@YOUNG2018]
 
 ## Description of data and data source
 
@@ -43,23 +46,27 @@ _Provide enough background on your topic that others can understand the why and 
 
 *Note: New diagnoses data are currently only available through 2020 on AIDSVu and CDC Atlas. If 2021-2022 data are not available by the time the analysis needs to be completed, the analysis will be temporarily restricted to 2012-2020.*
 
-* HIV New Diagnoses: [AIDSVu](https://aidsvu.org/) [@Sullivan2020] 
+* HIV New Diagnoses: [AIDSVu](https://aidsvu.org/) 
+* Google Trend data for search term "HIV": [Google Trends](https://trends.google.com/)
+
+[@Sullivan2020] 
     
 **Analysis**:
 
 * Rate (per 100,000) of new HIV diagnoses by age, gender, and race/ethnicity (national, regional)
 * Rate ratios for new HIV diagnoses by age, gender, and race/ethnicity (national, regional)
 * Average annual percent change (AAPC) for incidence (calculated using [Joinpoint Regression Software (Version 4.9.1.0)](https://surveillance.cancer.gov/help/joinpoint/tech-help/citation))
+* Predictions for Black-White and Hispanic-White rate ratios by state, using Google Trend search data for the term "HIV"
 
 ## Questions/Hypotheses to be addressed
-This analysis will evaluate national and regional trends in HIV new diagnoses between 2008-2020 by sex, age, and race/ethnicity. 
+This analysis will evaluate national and regional trends in HIV new diagnoses between 2008-2020 by sex, age, and race/ethnicity. Black-White and Hispanic-White rate ratios will also be predicted for 2022 based on Google Trend results for search term "HIV". 
 
 {{< pagebreak >}}
 
 # Methods 
 
 ## Data aquisition
-Data files were downloaded from [AIDSVu](https://aidsvu.org/) and placed in `data/raw_data/AIDSVu` sub-folders. The new diagnosis files consist of one xlsx file per year for each level (national, regional, etc.). 
+Data files were downloaded from [AIDSVu](https://aidsvu.org/) and placed in `data/raw_data/AIDSVu` sub-folders. The new diagnosis files consist of one xlsx file per year for each level (national, regional, state, etc.). For [Google Trends](https://trends.google.com/), annual estimates for search term "HIV" were downloaded for each state.
 
 ## Data import and cleaning
 The `processingcode.R` file includes the following steps:
@@ -81,6 +88,8 @@ The `analysis.qmd` file includes the following steps:
 Rate ratios for race/ethnicity were calculated by dividing the new diagnosis rate for each group by the new diagnosis rate for the reference group (non-Hispanic White).
 
 [Joinpoint Regression Software (Version 4.9.1.0)](https://surveillance.cancer.gov/help/joinpoint/tech-help/citation) was used to test for significant joinpoints (years) to identify  trends in new diagnoses rates, nationally and regionally, by sex, age, and race/ethnicity. Trends for rate ratios were also used to assess disparities by race/ethnicity over time. For Joinpoint analyses, the maximum number of joinpoints was set to 3, and standard errors were auto-calculated by the tool under the heteroscedasticity assumption. The average annual percent changes (AAPCs) from 2008-2020 were also calculated for all subsets.
+
+Google Trend data for search term "HIV" was downloaded for each state and year between 2016-2020. These data were used in linear models to predict not yet released 2022 Black-White and Hispanic-White rate ratios based on Google Trend data for 2022. 
 
 {{< pagebreak >}}
 
@@ -238,6 +247,24 @@ knitr::include_graphics(here("results","raceBWH_joinpoints_allUS.png"))
 #| fig-cap: "Regional Joinpoint AAPC results by race/ethnicity"
 #| echo: FALSE
 knitr::include_graphics(here("results","raceratio_byregion.png"))
+```
+
+@fig-bwrrpredict22 shows state-level predictions for Black-White Rate Ratios in 2022 based on Google Trend data for Search Term "HIV". 
+
+```{r}
+#| label: fig-bwrrpredict22
+#| fig-cap: "Black-White Rate Ratio Prediction for 2022 based on Google Trend for HIV Search Term"
+#| echo: FALSE
+knitr::include_graphics(here("results","Predict2022_BWratio.png"))
+```
+
+@fig-hwrrpredict22 shows state-level predictions for Hispanic-White Rate Ratios in 2022 based on Google Trend data for Search Term "HIV". 
+
+```{r}
+#| label: fig-hwrrpredict22
+#| fig-cap: "Hispanic-White Rate Ratio Prediction for 2022 based on Google Trend for HIV Search Term"
+#| echo: FALSE
+knitr::include_graphics(here("results","Predict2022_HWratio.png"))
 ```
 
 

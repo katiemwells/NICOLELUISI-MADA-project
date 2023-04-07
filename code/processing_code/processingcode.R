@@ -20,22 +20,6 @@ library(reshape2)
 #note the use of the here() package and not absolute paths
 nat_newdx_files <- list.files(path = (here("data","raw_data", "AIDSVu", "National", "NewDx")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows  
 reg_newdx_files <- list.files(path = (here("data","raw_data", "AIDSVu", "Region", "NewDx")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
-#st_newdx_files <- list.files(path = (here("data","raw_data", "AIDSVu", "State", "NewDx")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
-
-#nat_pnr_files <- list.files(path = (here("data","raw_data", "AIDSVu", "National", "PNR")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
-#nat_prep_files <- list.files(path = (here("data","raw_data", "AIDSVu", "National", "PrEP")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
-#reg_pnr_files <- list.files(path = (here("data","raw_data", "AIDSVu", "Region", "PNR")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
-#reg_prep_files <- list.files(path = (here("data","raw_data", "AIDSVu", "Region", "PrEP")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
-#st_pnr_files <- list.files(path = (here("data","raw_data", "AIDSVu", "State", "PNR")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
-#st_prep_files <- list.files(path = (here("data","raw_data", "AIDSVu", "State", "PrEP")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, skip = 2, col_names = T) %>% bind_rows 
-
-## ---- combinedata --------
-#national<-Reduce(function(x,y) merge(x,y,by="Year",all=T),
-#       list(nat_newdx_files, nat_pnr_files, nat_prep_files))
-#region<-Reduce(function(x,y) merge(x,y,by=c("Year", "Region"),all=T),
-#                 list(reg_newdx_files, reg_pnr_files, reg_prep_files))
-#state<-Reduce(function(x,y) merge(x,y,by=c("Year", "GEO ID"),all=T),
-#               list(st_newdx_files, st_pnr_files, st_prep_files))
 
 ## ---- exploredata --------
 
@@ -184,7 +168,33 @@ jp_raceratios<-jp_raceratios %>% dplyr::select("RaceRatio", "Geo", "Year", "Rate
 jp_raceratios<-jp_raceratios[order(jp_raceratios$RaceRatio, jp_raceratios$Geo, jp_raceratios$Year), ]
 save_jpraceratios <- here::here("data","processed_data","jp_raceratios.txt")
 write.table(jp_raceratios, file = save_jpraceratios, sep = "\t", row.names = FALSE)
-        
+
+# Adding new exploratory analysis for state data with google trend to try new analysis methods
+
+# state aidsvu data 2016-2020
+st_newdx_files <- list.files(path = (here("data","raw_data", "AIDSVu", "State", "NewDx", "Subsets")), pattern = "*.xlsx", full.names = T) %>% lapply(readxl::read_excel, col_names = T) %>% bind_rows 
+names(st_newdx_files)
+names(st_newdx_files) <- c("State", "Year", "Overall_Rate", "Black_Rate", "White_Rate", "Hispanic_Rate", "Asian_Rate",                                                                    
+                           "AIAN_Rate", "MultRace_Rate", "NHPI_Rate")
+# add rate ratios 
+st_newdx_files$black_white_rateratio<-round(st_newdx_files$Black_Rate/st_newdx_files$White_Rate, digits=1)
+st_newdx_files$hispanic_white_rateratio<-round(st_newdx_files$Hispanic_Rate/st_newdx_files$White_Rate, digits=1)
+st_newdx_files$asian_white_rateratio<-round(st_newdx_files$Asian_Rate/st_newdx_files$White_Rate, digits=1)
+st_newdx_files$aian_white_rateratio<-round(st_newdx_files$AIAN_Rate/st_newdx_files$White_Rate, digits=1)
+st_newdx_files$multrace_white_rateratio<-round(st_newdx_files$MultRace_Rate/st_newdx_files$White_Rate, digits=1)
+st_newdx_files$nhpi_white_rateratio<-round(st_newdx_files$NHPI_Rate/st_newdx_files$White_Rate, digits=1)
+
+# google trend data hiv 2016-2020
+gtrends_hiv <- readxl::read_excel(here("data","raw_data", "Misc", "Gtrends_HIV.xlsx")) 
+gtrends_hiv <- gtrends_hiv %>% filter(Year %in% c(2016,2017,2018,2019,2020))
+
+# combine
+state_gtrend <- merge(st_newdx_files,gtrends_hiv,by=c("State", "Year"),all=T)
+
+# save
+save_data_location <- here::here("data","processed_data","state_race_gtrend.rds")
+saveRDS(state_gtrend, file = save_data_location)
+
 ## ---- notes --------
 
 

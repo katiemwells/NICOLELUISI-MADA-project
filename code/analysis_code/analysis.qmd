@@ -21,6 +21,10 @@ library(kableExtra)
 library(gridExtra)
 library(ggpubr)
 library(janitor)
+library(tidymodels)
+library(dotwhisker)
+library(tidyverse)
+library(caret)
 ```
 
 # Load clean data
@@ -353,4 +357,204 @@ national %>% gt::gt() %>%
 
 table_file8 = here("results", "all_us_rates.rds")
 saveRDS(national, file = table_file8)
+```
+
+
+# Analyze State Race Data with Google Trend HIV Search
+
+```{r}
+state_race_gtrend<-readRDS(here("data", "processed_data", "state_race_gtrend.rds"))
+gtrends_2021_2022 <- readxl::read_excel(here("data","raw_data", "Misc", "Gtrends_2021_2022.xlsx")) 
+p_2022 <- gtrends_2021_2022 %>% filter(Year %in% c(2022))
+
+linear_reg() %>% 
+  set_engine("keras")
+lm_mod <- linear_reg()
+
+# predict 2022 black-white
+lm_fit <- 
+  lm_mod %>% 
+  fit(black_white_rateratio ~ Gtrend + Year + State , data = state_race_gtrend)
+lm_fit
+tidy(lm_fit)
+tidy(lm_fit) %>% 
+  dwplot(dot_args = list(size = 2, color = "black"),
+         whisker_args = list(color = "black"),
+         vline = geom_vline(xintercept = 0, colour = "grey50", linetype = 2)) 
+
+mean_pred <- predict(lm_fit, new_data = p_2022)
+conf_int_pred <- predict(lm_fit, new_data = p_2022, type = "conf_int")
+glance(lm_fit) %>%
+  dplyr::select(adj.r.squared, sigma, AIC, BIC, p.value)
+
+plot_data <- 
+  p_2022 %>% 
+  bind_cols(mean_pred) %>% 
+  bind_cols(conf_int_pred)
+
+compare <- state_race_gtrend  %>% filter(Year %in% c(2020)) %>% select(State, black_white_rateratio, hispanic_white_rateratio) 
+plot_data_c <- merge(plot_data,compare,by=c("State"),all=T)
+
+south<-plot_data_c %>% filter(State %in% c('Alabama','Arkansas','Delaware','District of Columbia','Florida','Georgia',
+                                         'Kentucky','Louisiana','Maryland','Mississippi','North Carolina','Oklahoma',
+                                         'South Carolina','Tennessee','Texas','Virginia','West Virginia'))
+northeast<-plot_data_c %>% filter(State %in% c('Connecticut', 'Maine', 'Massachusetts', 'New Hampshire', 'New Jersey', 'New York', 
+                                             'Pennsylvania', 'Rhode Island', 'Vermont'))
+west<-plot_data_c %>% filter(State %in% c('Alaska', 'Arizona', 'California', 'Colorado', 'Hawaii', 'Idaho', 'Montana', 'Nevada', 'New Mexico',
+                                        'Oregon', 'Utah', 'Washington', 'Wyoming'))
+midwest<-plot_data_c %>% filter(State %in% c('Illinois', 'Indiana', 'Iowa', 'Kansas', 'Michigan', 'Minnesota', 'Missouri', 'Nebraska', 'North Dakota',
+                                           'Ohio','South Dakota', 'Wisconsin'))
+
+south22<-ggplot(south, aes(x = State)) + 
+  geom_point(aes(y = .pred)) + 
+  geom_errorbar(aes(ymin = .pred_lower, 
+                    ymax = .pred_upper),
+                width = .2) + 
+  labs(y = "Black-White Rate-Ratio") + 
+  scale_x_discrete(labels=c('AL','AR','DE','DC','FL','GA', 'KY','LA','MD','MS','NC','OK',
+                                         'SC','TN','TX','VA','WV')) +
+  ggtitle(label="SOUTH: Predict 2022") + 
+  theme_light() + 
+  geom_point(aes(y = black_white_rateratio, color="red")) + 
+  theme(legend.title = element_blank()) + 
+  scale_colour_discrete(labels=c('Actual Black-White Rate Ratio, 2020'))
+
+northeast22<-ggplot(northeast, aes(x = State)) + 
+  geom_point(aes(y = .pred)) + 
+  geom_errorbar(aes(ymin = .pred_lower, 
+                    ymax = .pred_upper),
+                width = .2) + 
+  labs(y = "Black-White Rate-Ratio") + 
+  scale_x_discrete(labels=c('CT', 'ME', 'MA', 'NH', 'NJ', 'NY', 'PA', 'RI', 'VT')) +
+  ggtitle(label="NORTHEAST: Predict 2022") + 
+  theme_light() + 
+  geom_point(aes(y = black_white_rateratio, color="red")) + 
+  theme(legend.title = element_blank()) + 
+  scale_colour_discrete(labels=c('Actual Black-White Rate Ratio, 2020'))
+
+west22<-ggplot(west, aes(x = State)) + 
+  geom_point(aes(y = .pred)) + 
+  geom_errorbar(aes(ymin = .pred_lower, 
+                    ymax = .pred_upper),
+                width = .2) + 
+  labs(y = "Black-White Rate-Ratio") + 
+  scale_x_discrete(labels=c('AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NV', 'NM', 
+                            'OR', 'UT', 'WA', 'WY')) +
+  ggtitle(label="WEST: Predict 2022") + 
+  theme_light() + 
+  geom_point(aes(y = black_white_rateratio, color="red")) + 
+  theme(legend.title = element_blank()) + 
+  scale_colour_discrete(labels=c('Actual Black-White Rate Ratio, 2020'))
+
+midwest22<-ggplot(midwest, aes(x = State)) + 
+  geom_point(aes(y = .pred)) + 
+  geom_errorbar(aes(ymin = .pred_lower, 
+                    ymax = .pred_upper),
+                width = .2) + 
+  labs(y = "Black-White Rate-Ratio") + 
+  scale_x_discrete(labels=c('IL', 'IN', 'IA', 'KS', 'MI', 'MN', 'MO', 'NE', 'ND',
+                            'OH','SD', 'WI')) +
+  ggtitle(label="MIDWEST: Predict 2022") + 
+  theme_light() + 
+  geom_point(aes(y = black_white_rateratio, color="red")) + 
+  theme(legend.title = element_blank()) + 
+  scale_colour_discrete(labels=c('Actual Black-White Rate Ratio, 2020'))
+
+predict_2022_blackwhite<-ggarrange(northeast22, south22, west22, midwest22, ncol=2, nrow = 2, common.legend = TRUE, legend="bottom")
+predict_2022_blackwhite
+figure_file = here("results","Predict2022_BWratio.png")
+ggsave(filename = figure_file, plot=predict_2022_blackwhite) 
+
+# predict 2022 hispanic-white
+lm_fit <- 
+  lm_mod %>% 
+  fit(hispanic_white_rateratio ~ Gtrend + Year + State , data = state_race_gtrend)
+lm_fit
+tidy(lm_fit)
+tidy(lm_fit) %>% 
+  dwplot(dot_args = list(size = 2, color = "black"),
+         whisker_args = list(color = "black"),
+         vline = geom_vline(xintercept = 0, colour = "grey50", linetype = 2)) 
+mean_pred <- predict(lm_fit, new_data = p_2022)
+conf_int_pred <- predict(lm_fit, new_data = p_2022, type = "conf_int")
+glance(lm_fit) %>%
+  dplyr::select(adj.r.squared, sigma, AIC, BIC, p.value)
+
+plot_data <- 
+  p_2022 %>% 
+  bind_cols(mean_pred) %>% 
+  bind_cols(conf_int_pred)
+
+compare <- state_race_gtrend  %>% filter(Year %in% c(2020)) %>% select(State, black_white_rateratio, hispanic_white_rateratio) 
+plot_data_c <- merge(plot_data,compare,by=c("State"),all=T)
+
+south<-plot_data_c %>% filter(State %in% c('Alabama','Arkansas','Delaware','District of Columbia','Florida','Georgia',
+                                         'Kentucky','Louisiana','Maryland','Mississippi','North Carolina','Oklahoma',
+                                         'South Carolina','Tennessee','Texas','Virginia','West Virginia'))
+northeast<-plot_data_c %>% filter(State %in% c('Connecticut', 'Maine', 'Massachusetts', 'New Hampshire', 'New Jersey', 'New York', 
+                                             'Pennsylvania', 'Rhode Island', 'Vermont'))
+west<-plot_data_c %>% filter(State %in% c('Alaska', 'Arizona', 'California', 'Colorado', 'Hawaii', 'Idaho', 'Montana', 'Nevada', 'New Mexico',
+                                        'Oregon', 'Utah', 'Washington', 'Wyoming'))
+midwest<-plot_data_c %>% filter(State %in% c('Illinois', 'Indiana', 'Iowa', 'Kansas', 'Michigan', 'Minnesota', 'Missouri', 'Nebraska', 'North Dakota',
+                                           'Ohio','South Dakota', 'Wisconsin'))
+
+south22<-ggplot(south, aes(x = State)) + 
+  geom_point(aes(y = .pred)) + 
+  geom_errorbar(aes(ymin = .pred_lower, 
+                    ymax = .pred_upper),
+                width = .2) + 
+  labs(y = "Hispanic-White Rate-Ratio") + 
+  scale_x_discrete(labels=c('AL','AR','DE','DC','FL','GA', 'KY','LA','MD','MS','NC','OK',
+                                         'SC','TN','TX','VA','WV')) +
+  ggtitle(label="SOUTH: Predict 2022") + 
+  theme_light() + 
+  geom_point(aes(y = hispanic_white_rateratio, color="red")) + 
+  theme(legend.title = element_blank()) + 
+  scale_colour_discrete(labels=c('Actual Hispanic-White Rate Ratio, 2020'))
+
+northeast22<-ggplot(northeast, aes(x = State)) + 
+  geom_point(aes(y = .pred)) + 
+  geom_errorbar(aes(ymin = .pred_lower, 
+                    ymax = .pred_upper),
+                width = .2) + 
+  labs(y = "Hispanic-White Rate-Ratio") + 
+  scale_x_discrete(labels=c('CT', 'ME', 'MA', 'NH', 'NJ', 'NY', 'PA', 'RI', 'VT')) +
+  ggtitle(label="NORTHEAST: Predict 2022") + 
+  theme_light() + 
+  geom_point(aes(y = hispanic_white_rateratio, color="red")) + 
+  theme(legend.title = element_blank()) + 
+  scale_colour_discrete(labels=c('Actual Hispanic-White Rate Ratio, 2020'))
+
+west22<-ggplot(west, aes(x = State)) + 
+  geom_point(aes(y = .pred)) + 
+  geom_errorbar(aes(ymin = .pred_lower, 
+                    ymax = .pred_upper),
+                width = .2) + 
+  labs(y = "Hispanic-White Rate-Ratio") + 
+  scale_x_discrete(labels=c('AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NV', 'NM', 
+                            'OR', 'UT', 'WA', 'WY')) +
+  ggtitle(label="WEST: Predict 2022") + 
+  theme_light() + 
+  geom_point(aes(y = hispanic_white_rateratio, color="red")) + 
+  theme(legend.title = element_blank()) + 
+  scale_colour_discrete(labels=c('Actual Hispanic-White Rate Ratio, 2020'))
+
+midwest22<-ggplot(midwest, aes(x = State)) + 
+  geom_point(aes(y = .pred)) + 
+  geom_errorbar(aes(ymin = .pred_lower, 
+                    ymax = .pred_upper),
+                width = .2) + 
+  labs(y = "Hispanic-White Rate-Ratio") + 
+  scale_x_discrete(labels=c('IL', 'IN', 'IA', 'KS', 'MI', 'MN', 'MO', 'NE', 'ND',
+                            'OH','SD', 'WI')) +
+  ggtitle(label="MIDWEST: Predict 2022") + 
+  theme_light() + 
+  geom_point(aes(y = hispanic_white_rateratio, color="red")) + 
+  theme(legend.title = element_blank()) + 
+  scale_colour_discrete(labels=c('Actual Hispanic-White Rate Ratio, 2020'))
+
+predict_2022_hispanicwhite<-ggarrange(northeast22, south22, west22, midwest22, ncol=2, nrow = 2, common.legend = TRUE, legend="bottom")
+predict_2022_hispanicwhite
+figure_file = here("results","Predict2022_HWratio.png")
+ggsave(filename = figure_file, plot=predict_2022_hispanicwhite) 
 ```
