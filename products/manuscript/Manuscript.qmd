@@ -4,11 +4,11 @@ subtitle: "Trends in New HIV Diagnoses in the US, 2008-2020"
 author: Nicole Luisi
 date: "`r Sys.Date()`"
 format:
-  html:
-    self-contained: true
+  docx:
     toc: false
     number-sections: true
     highlight-style: github
+    prefer-html: true
 bibliography: ../dataanalysis_template_references.bib
 csl: ../apa.csl
 ---
@@ -30,43 +30,38 @@ library(ggpubr)
 
 # Summary/Abstract
 
-The purpose of this analysis is to analyze US trends in new HIV diagnoses over the past 10 years (2008-2020) by region, age group, gender, and race/ethnicity. Joinpoint regression was used to identify significant trends and annual percent changes in new diagnoses rates, and trends for rate ratios were also used to assess disparities by race/ethnicity over time. Google Trend data from 2016-2020 for search term "HIV" was used to predict not yet released Black-White and Hispanic-White rate ratios for 2022. 
+This report evaluates trends in new HIV diagnoses over the past 10 years (2008-2020) by region, age group, gender, and race/ethnicity. Joinpoint regression was used to identify significant trends and annual percent changes in new diagnoses rates, and trends for rate ratios were also used to assess disparities by race/ethnicity over time. Google Trend data from 2016-2020 for search term "HIV" was used to predict unreleased Black-White and Hispanic-White rate ratios for 2022. Overall, new HIV diagnoses declined for all groups over the last several years. Race ratios are predicted to continue to decline within most US states. More data is needed to determine whether the steepest declines observed between 2019-2020 are due to programmatic changes or other issues related to the COVID-19 pandemic.
 
 # Introduction 
 
 ## General Background Information
 
-Previous research by [Chapin-Bardales et al. (2017)](https://doi.org/10.1016/j.annepidem.2017.04.002) evaluated trends in AIDS diagnosis rates by race/ethnicity between 1984-2013.
-
-[@Chapin2017] [@Sullivan2020] [@SULLIVAN2018833] [@FIELDS2021] [@BOSH2021] [@MCCREE2019] [@YOUNG2018]
+Over the last 15 years, the United States (US) has made substantial progress in reducing the number of new HIV diagnoses each year. [@MILLETT2010, @BOSH2021] A number of effective programmatic and clinical-based strategies to prevent HIV transmission have led to a steady decline in new HIV diagnoses rates for several years, but for many groups this trend began to wane around 2013, prompting new initiatives such as ['Ending the HIV Epidemic'](https://ahead.hiv.gov/), a national plan to increase the use of a number of key prevention strategies and to reach the goal of a 90% reduction in new diagnoses by 2023. [@CDCStateEpid22, @HIVGOV19] In recent years, new HIV diagnoses rates have continued to decline, but a number of socio-demographic and geographic disparities still remain [@CDCStateEpid22], as does some uncertainty about the impact of current prevention strategies [@BRADLEY2019] and the COVID-19 epidemic, particularly among vulnerable or high risk groups [@CDCStateEpid22, @FIELDS2021, @MCCREE2019]. Previous research has evaluated trends in new AIDS diagnosis rates by race/ethnicity between 1984-2013 [@Chapin2017], and trends in the use of pre-exposure prophylaxis (PrEP) between 2007-2016 [@SULLIVAN2018833]. Using similar methods, this project evaluates trends for new HIV diagnoses by race/ethnicity and other subgroups between 2008-2020, and a sub-analysis inspired by Young et al. (2018) [@YOUNG2018] uses publicly available [Google Trends](https://trends.google.com/) data to predict state-level new HIV diagnoses rates for 2022, which have not yet been released.
 
 ## Description of data and data source
 
 **Data Source**:
 
-*Note: New diagnoses data are currently only available through 2020 on AIDSVu and CDC Atlas. If 2021-2022 data are not available by the time the analysis needs to be completed, the analysis will be temporarily restricted to 2012-2020.*
+New HIV diagnoses data at the national, regional, and state levels were obtained from [AIDSVu](https://aidsvu.org/), and interactive online tool developed by researchers at Emory University that allows users to explore HIV-related data compiled from the Centers for Disease Control and Prevention (CDC) and other sources. [@Sullivan2020] *New diagnoses data were only available through 2020 at the time of this report.*
 
-* HIV New Diagnoses: [AIDSVu](https://aidsvu.org/) 
-* Google Trend data for search term "HIV": [Google Trends](https://trends.google.com/)
+The [Google Trends](https://trends.google.com/) website was used to extract state-level data for the Google search term "HIV" in 2022. This site allows users to explore and download data on the use Google search terms, stratified by a number of different factors. 
 
-[@Sullivan2020] 
-    
 **Analysis**:
 
-* Rate (per 100,000) of new HIV diagnoses by age, gender, and race/ethnicity (national, regional)
-* Rate ratios for new HIV diagnoses by age, gender, and race/ethnicity (national, regional)
-* Average annual percent change (AAPC) for incidence (calculated using [Joinpoint Regression Software (Version 4.9.1.0)](https://surveillance.cancer.gov/help/joinpoint/tech-help/citation))
-* Predictions for Black-White and Hispanic-White rate ratios by state, using Google Trend search data for the term "HIV"
+Data from [AIDSVu](https://aidsvu.org/) were compiled for the variables of interest (new diagnoses rates overall and by sex, age, and race/ethnicity), at the national, regional, and state level. Detailed data methods are available on the [AIDSVu website](https://aidsvu.org/data-methods/), but briefly, new diagnoses include anyone with an HIV diagnosis in each 1-year period; all rates were calculated per 100,000. For race/ethnicity comparisons, rate ratios were calculated using White non-Hispanic as the reference group. 
 
-## Questions/Hypotheses to be addressed
-This analysis will evaluate national and regional trends in HIV new diagnoses between 2008-2020 by sex, age, and race/ethnicity. Black-White and Hispanic-White rate ratios will also be predicted for 2022 based on Google Trend results for search term "HIV". 
+Annual percent change (APC) and average APC (AAPC) for incidence was calculated using [Joinpoint Regression Software (Version 4.9.1.0)](https://surveillance.cancer.gov/help/joinpoint/tech-help/citation)). These methods allow for a summary and trend analysis of rates within fixed periods of time. 
+
+New diagnoses rate trends were explored for all geographic levels and stratification groups, and select results were summarized in this report. Based on previous research and results of the exploratory analysis, an emphasis was placed on evaluating trends by race/ethnicity. 
+
+To predict 2022 Black-White and Hispanic-White new diagnoses rate ratios not yet released at the time of this report, [Google Trends](https://trends.google.com/) data for the search term "HIV" was included in a linear prediction model.
 
 {{< pagebreak >}}
 
 # Methods 
 
 ## Data aquisition
-Data files were downloaded from [AIDSVu](https://aidsvu.org/) and placed in `data/raw_data/AIDSVu` sub-folders. The new diagnosis files consist of one xlsx file per year for each level (national, regional, state, etc.). For [Google Trends](https://trends.google.com/), annual estimates for search term "HIV" were downloaded for each state.
+Data files were downloaded from [AIDSVu](https://aidsvu.org/) and placed in `data/raw_data/AIDSVu` sub-folders. The new diagnoses files consist of one xlsx file per year for each level (national, regional, state, etc.). For [Google Trends](https://trends.google.com/), annual estimates for search term "HIV" were downloaded for each state.
 
 ## Data import and cleaning
 The `processingcode.R` file includes the following steps:
@@ -82,14 +77,15 @@ The `analysis.qmd` file includes the following steps:
 * Read in result data from external Joinpoint analyses
 * Clean and combine Joinpoint analysis results
 * View/explore data
+* Generate race ratio predictions for 2022
 * Create tables and plots of results
 
 ## Statistical analysis
-Rate ratios for race/ethnicity were calculated by dividing the new diagnosis rate for each group by the new diagnosis rate for the reference group (non-Hispanic White).
+Rate ratios for race/ethnicity were calculated by dividing the new diagnosis rate for each sub-group by the new diagnosis rate for the reference group (non-Hispanic White).
 
 [Joinpoint Regression Software (Version 4.9.1.0)](https://surveillance.cancer.gov/help/joinpoint/tech-help/citation) was used to test for significant joinpoints (years) to identify  trends in new diagnoses rates, nationally and regionally, by sex, age, and race/ethnicity. Trends for rate ratios were also used to assess disparities by race/ethnicity over time. For Joinpoint analyses, the maximum number of joinpoints was set to 3, and standard errors were auto-calculated by the tool under the heteroscedasticity assumption. The average annual percent changes (AAPCs) from 2008-2020 were also calculated for all subsets.
 
-Google Trend data for search term "HIV" was downloaded for each state and year between 2016-2020. These data were used in linear models to predict not yet released 2022 Black-White and Hispanic-White rate ratios based on Google Trend data for 2022. 
+Google Trend data for the search term "HIV" were downloaded for each state and year between 2016-2020. These data were used in linear models to predict not yet released 2022 Black-White and Hispanic-White rate ratios. `Tidymodels` was used to create a linear prediction model and metrics to evaluate model fit. 
 
 {{< pagebreak >}}
 
@@ -97,63 +93,7 @@ Google Trend data for search term "HIV" was downloaded for each state and year b
 
 ## Descriptive analysis
 
-@fig-natplotsex shows line plot for national new diagnosis rates by sex.
-
-```{r}
-#| label: fig-natplotsex
-#| fig-cap: "National new diagnosis rates by sex"
-#| echo: FALSE
-knitr::include_graphics(here("results","US_rates_bysex.png"))
-```
-
-@fig-natplotage shows line plot for national new diagnosis rates by age group.
-
-```{r}
-#| label: fig-natplotage
-#| fig-cap: "National new diagnosis rates by age group"
-#| echo: FALSE
-knitr::include_graphics(here("results","US_rates_byage.png"))
-```
-
-@fig-natplotrace shows line plot for national new diagnosis rates by race/ethnicity.
-
-```{r}
-#| label: fig-natplotrace
-#| fig-cap: "National new diagnosis rates by race/ethnicity"
-#| echo: FALSE
-knitr::include_graphics(here("results","US_rates_byrace.png"))
-```
-
-Trends by sex and age group are as expected. For sex and age, all rates have declined between 2008-2020 and groups with the highest incidence had the steepest declines over time, particularly after 2016. The remainder of this analysis will focus on trends and disparities by race/ethnicity.
-
-@fig-regplotrace shows a bubble plot comparing regional new diagnosis (log) rates by race/ethnicity. The color represents race/ethnicity and the size of the point represents the log of the new diagnosis rate. 
-
-```{r}
-#| label: fig-regplotrace
-#| fig-cap: "Regional new diagnosis rate (log) by race/ethnicity"
-#| echo: FALSE
-knitr::include_graphics(here("results","racerates_region.png"))
-```
-
-@fig-natplotraceratios shows national plot of log race ratios for new diagnoses (White=ref).
-
-```{r}
-#| label: fig-natplotraceratios
-#| fig-cap: "National race ratios"
-#| echo: FALSE
-knitr::include_graphics(here("results","racerates_allUS.png"))
-```
-
-@fig-natplotdiffbwh shows national plot of White-Black and White-Hispanic rate differences by year.
-
-```{r}
-#| label: fig-natplotdiffbwh
-#| fig-cap: "White-Black and White-Hispanic differences in national new diagnosis rate"
-#| echo: FALSE
-knitr::include_graphics(here("results","nat_diff_bwh.png"))
-```
-
-@tbl-allrates shows a full summary of new diagnosis rates for all US by group.
+The rate of new HIV diagnoses in the US has declined each year between 2008-2020, and in 2020 the US observed its lowest rate of 10.9 per 100,000. @tbl-allrates displays national new diagnosis rates overall, and by sex, age, and race/ethnicity. Similar to the overall trend observed, new diagnoses rates declined for both males and females during this period. @fig-natplotsex uses a line plot to illustrate national new diagnoses rates by sex. Rates were consistently higher for males versus females each year, and the decrease between 2008-2020 was twice that for males than females. @fig-natplotage uses a line plot to illustrate national new diagnoses rates by age group. Rates for all age groups also decreased during this time, with the sharpest decline among those age 25-34 between 2016-2019. 
 
 ```{r}
 #| label: tbl-allrates
@@ -164,9 +104,85 @@ kable(resulttable,caption = "All US New Diagnosis Rates", col.names=c("Year", "O
   row_spec(row = 0, color = "white", background = "#004987") %>% kable_styling(full_width=T, bootstrap_options = "striped", font_size=10)  
 ```
 
+```{r}
+#| label: fig-natplotsex
+#| fig-cap: "National new diagnosis rates by sex"
+#| echo: FALSE
+knitr::include_graphics(here("results","US_rates_bysex.png"))
+```
+
+```{r}
+#| label: fig-natplotage
+#| fig-cap: "National new diagnosis rates by age group"
+#| echo: FALSE
+knitr::include_graphics(here("results","US_rates_byage.png"))
+```
+
+@fig-natplotrace uses a line plot to illustrate national new diagnoses rates by race/ethnicity. Rates were stable for most groups over this time period, with the exception of Multiracial and Black non-Hispanic persons; both of these groups showed a steep decline, particularly between 2019-2020. @fig-natplotracerates and @fig-regplotrace use bubble plots to compare new diagnoses (log) rates by race/ethnicity, nationally and regionally. In these plots, the color represents race/ethnicity and the size of the point represents the log of the new diagnoses rates. At the national level, consistent with previous research, rates for White non-Hispanic and Asian persons have remained relatively stable, while Black non-Hispanic, Multiracial, and Hispanic persons experience higher rates overall and therefore have some of the steepest declines in recent years. At the regional level, while overall trends are similar, larger disparities between groups were observed in the South. 
+
+```{r}
+#| label: fig-natplotrace
+#| fig-cap: "National new diagnosis rates by race/ethnicity"
+#| echo: FALSE
+knitr::include_graphics(here("results","US_rates_byrace.png"))
+```
+
+```{r}
+#| label: fig-natplotracerates
+#| fig-cap: "National race ratios"
+#| echo: FALSE
+knitr::include_graphics(here("results","racerates_allUS.png"))
+```
+
+```{r}
+#| label: fig-regplotrace
+#| fig-cap: "Regional new diagnosis rate (log) by race/ethnicity"
+#| echo: FALSE
+knitr::include_graphics(here("results","racerates_region.png"))
+```
+
+Rates for Black non-Hispanic and Hispanic persons were evaluated using comparisons with a reference group (White non-Hispanic). Black-White and Hispanic-White rate ratios were 8.1 and 3.8 in 2020 (respectively), down from 9.7 and 4.3 in 2008. @fig-natplotdiffbwh displays national White-Black and White-Hispanic rate differences by year.
+
+```{r}
+#| label: fig-natplotdiffbwh
+#| fig-cap: "White-Black and White-Hispanic differences in national new diagnosis rate"
+#| echo: FALSE
+knitr::include_graphics(here("results","nat_diff_bwh.png"))
+```
+
 ## Statistical analysis
 
-@tbl-allaapc shows a summary of average annual percent change (AAPC) for each subgroup and geographic region.
+Tables @tbl-allapc and @tbl-allaapc summarize annual percent change (APC) and average annual percent change (AAPC) for each subgroup and geographic region. Race/ethnicity is of particular interest, so the remainder of the Joinpoint results will be within this subgroup. 
+
+```{r}
+#| label: tbl-allapc
+#| tbl-cap: "All APCs"
+#| echo: FALSE
+resulttable=readRDS(here("results","apc_all_results.rds"))
+kable(resulttable,caption = "All APC Results", align="rc") %>% 
+  row_spec(row = 0, color = "white", background = "#004987") %>% kable_styling(full_width=T, bootstrap_options = "striped", font_size=10) %>% 
+  pack_rows("Overall", 1, 15) %>%
+  pack_rows("Female", 16, 24) %>%
+  pack_rows("Male", 25, 32) %>%
+  pack_rows("Age 13-24", 33, 41) %>%
+  pack_rows("Age 25-34", 42, 54) %>%
+  pack_rows("Age 35-44", 55, 63)  %>%
+  pack_rows("Age 45-54", 64, 70)  %>%
+  pack_rows("Age 55+", 71, 76)  %>%
+  pack_rows("American Indian/Alaska Native", 77, 80) %>%
+  pack_rows("Asian", 81, 90) %>%
+  pack_rows("Black", 91, 102) %>%
+  pack_rows("Hispanic", 103, 113) %>%
+  pack_rows("Multiracial", 114, 120) %>%
+  pack_rows("Native Hawaiian/Pacific Islander", 121, 123) %>%
+  pack_rows("White", 124, 130) %>%
+  pack_rows("AIAN-White", 131, 134) %>%
+  pack_rows("Asian-White", 135, 142) %>%
+  pack_rows("Black-White", 143, 147) %>%
+  pack_rows("Hispanic-White", 148, 156) %>%
+  pack_rows("Multi-White", 157, 165) %>%
+  pack_rows("NHPI-White", 166, 168) 
+```
 
 ```{r}
 #| label: tbl-allaapc
@@ -199,39 +215,7 @@ kable(resulttable,caption = "All AAPC Results",
   pack_rows("NHPI-White", 97, 99) 
 ```
 
-@tbl-allapc shows a full summary of annual percent change (APC) for each segment of time within each subgroup and geographic region.
-
-```{r}
-#| label: tbl-allapc
-#| tbl-cap: "All APCs"
-#| echo: FALSE
-resulttable=readRDS(here("results","apc_all_results.rds"))
-kable(resulttable,caption = "All APC Results", align="rc") %>% 
-  row_spec(row = 0, color = "white", background = "#004987") %>% kable_styling(full_width=T, bootstrap_options = "striped", font_size=10) %>% 
-  pack_rows("Overall", 1, 15) %>%
-  pack_rows("Female", 16, 24) %>%
-  pack_rows("Male", 25, 32) %>%
-  pack_rows("Age 13-24", 33, 41) %>%
-  pack_rows("Age 25-34", 42, 54) %>%
-  pack_rows("Age 35-44", 55, 63)  %>%
-  pack_rows("Age 45-54", 64, 70)  %>%
-  pack_rows("Age 55+", 71, 76)  %>%
-  pack_rows("American Indian/Alaska Native", 77, 80) %>%
-  pack_rows("Asian", 81, 90) %>%
-  pack_rows("Black", 91, 102) %>%
-  pack_rows("Hispanic", 103, 113) %>%
-  pack_rows("Multiracial", 114, 120) %>%
-  pack_rows("Native Hawaiian/Pacific Islander", 121, 123) %>%
-  pack_rows("White", 124, 130) %>%
-  pack_rows("AIAN-White", 131, 134) %>%
-  pack_rows("Asian-White", 135, 142) %>%
-  pack_rows("Black-White", 143, 147) %>%
-  pack_rows("Hispanic-White", 148, 156) %>%
-  pack_rows("Multi-White", 157, 165) %>%
-  pack_rows("NHPI-White", 166, 168) 
-```
-
-@fig-natplotbwhjpoint shows national plot of new diagnosis Joinpoints for race/ethnicity (Black, White, Hispanic).
+National Joinpoints for race/ethnicity (Black non-Hispanic, White non-Hispanic, Hispanic) are summarized in @fig-natplotbwhjpoint. Of note, White non-Hispanic remain fairy stable, while disparities are evident for Black non-Hispanic and Hispanic persons, although rates show a steady decline, particularly after 2016. @fig-regplotraceratioaapc displays AAPC plots by region and race/ethnicity with 95% confidence intervals (CIs). AAPC was similar for Black non-Hispanic and Hispanic persons by region, and was most notable for Multiracial persons in all regions consistent with the steep decline observed in previous output. 
 
 ```{r}
 #| label: fig-natplotbwhjpoint
@@ -240,16 +224,14 @@ kable(resulttable,caption = "All APC Results", align="rc") %>%
 knitr::include_graphics(here("results","raceBWH_joinpoints_allUS.png"))
 ```
 
-@fig-natplotraceratioaapc shows regional plot of new diagnosis AAPCs for race/ethnicity.
-
 ```{r}
-#| label: fig-natplotraceratioaapc
+#| label: fig-regplotraceratioaapc
 #| fig-cap: "Regional Joinpoint AAPC results by race/ethnicity"
 #| echo: FALSE
 knitr::include_graphics(here("results","raceratio_byregion.png"))
 ```
 
-@fig-bwrrpredict22 shows state-level predictions for Black-White Rate Ratios in 2022 based on Google Trend data for Search Term "HIV". 
+For 2022 predictions, state-level data has been grouped and presented by US region. @fig-bwrrpredict22 and @fig-hwrrpredict22 display state-level predictions for Black-White and Hispanic-White rate ratios in 2022, based on the popularity of Google Trends search data for the search term "HIV". In these plots, the actual rate ratio observed for each state in 2020 is displayed in red, and the predicted rates and 95% CIs are in black. In most states, the observed 2020 rate ratio falls within the predicted range, with some exceptions. In Wyoming, the search term data predicted a much different Black-White rate ratio than previously observed, and a similar issue was noted in Vermont for the Hispanic-White ratio. Performance in this limited model was poor, with an adjusted R-squared of 0.55.  
 
 ```{r}
 #| label: fig-bwrrpredict22
@@ -258,8 +240,6 @@ knitr::include_graphics(here("results","raceratio_byregion.png"))
 knitr::include_graphics(here("results","Predict2022_BWratio.png"))
 ```
 
-@fig-hwrrpredict22 shows state-level predictions for Hispanic-White Rate Ratios in 2022 based on Google Trend data for Search Term "HIV". 
-
 ```{r}
 #| label: fig-hwrrpredict22
 #| fig-cap: "Hispanic-White Rate Ratio Prediction for 2022 based on Google Trend for HIV Search Term"
@@ -267,21 +247,15 @@ knitr::include_graphics(here("results","Predict2022_BWratio.png"))
 knitr::include_graphics(here("results","Predict2022_HWratio.png"))
 ```
 
-
 {{< pagebreak >}}
-
 
 # Discussion
 
-## Summary and Interpretation
-_Summarize what you did, what you found and what it means._
+This report summarizes general trends in new HIV diagnoses between 2008-2020. Overall, these trends were as expected, with a general overall decline for all groups over the last several years. The steepest decline in rates was observed between 2019-2020, among Black non-Hispanic and Multiracial persons. This decline may be due to programmatic changes or reporting issues during the COVID-19 pandemic. Previously observed disparities by race/ethnicity still remain. Race ratios are predicted to continue to decline within most states. The use of Google Trends data to predict 2022 rates is somewhat arbitrary, but is not unreasonable given that many individuals may be searching for information about HIV online after experiencing symptoms or a risk event. More information about health seeking behaviors may be necessary to understand the predictions observed in some states.   
 
-## Strengths and Limitations
-_Discuss what you perceive as strengths and limitations of your analysis._
+This report is subject to several limitations. The analysis planned to include data from 2008-2022, however 2021-2022 data were not available in time so the analysis was restricted from 2008-2020. The prediction model provided reasonable estimates but performed poorly overall. Additional state-level data such as census characteristics could be used to improve model fit. This analysis also did not evaluate rates for specific transmission groups such as MSM or IDU which may factor heavily into trends for some geographic levels. 
 
-## Conclusions
-_What are the main take-home messages?_
-
+This preliminary analysis summarizes overall trends and highlights several notable disparities in new HIV diagnoses. Future analyses should include a wider range of post-COVID data, focus on a small, defined geographic unit, and account for rate differences with and without high-risk transmission groups. 
 
 {{< pagebreak >}}
 

@@ -58,7 +58,7 @@ natfig_r <- natfig_r %>% layout(title="National New Diagnosis Rate by Race/Ethni
 natfig_a <- plot_ly(national, x = ~Year, y = ~Overall_Rate, name = "Overall", type="scatter", mode = "lines", line = list(width = 3, dash = "dash", color = "gray")) 
 natfig_a <- natfig_a %>% add_trace(y = ~Age13t24_Rate, name = "Age 13-24", mode = 'lines', line = list(width = 3, dash = "solid", color = "blue"))
 natfig_a <- natfig_a %>% add_trace(y = ~Age25t34_Rate, name = "Age 25-34", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkgreen"))
-natfig_a <- natfig_a %>% add_trace(y = ~Age35t44_Rate, name = "Age 35-44e", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkred"))
+natfig_a <- natfig_a %>% add_trace(y = ~Age35t44_Rate, name = "Age 35-44", mode = 'lines', line = list(width = 3, dash = "solid", color = "darkred"))
 natfig_a <- natfig_a %>% add_trace(y = ~Age45t54_Rate, name = "Age 45-54", mode = 'lines', line = list(width = 3, dash = "solid", color = "cornflowerblue"))
 natfig_a <- natfig_a %>% add_trace(y = ~Age55p_Rate, name = "Age 55+", mode = 'lines', line = list(width = 3, dash = "solid", color = "orange"))
 natfig_a <- natfig_a %>% layout(title="National New Diagnosis Rate by Age", legend=list(title=list(text='Age')), 

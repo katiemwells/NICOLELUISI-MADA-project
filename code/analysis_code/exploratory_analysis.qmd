@@ -15,6 +15,7 @@ library(skimr)
 library(plotly)
 library(gt)
 library(knitr)
+library(dplyr)
 ```
 
 ## Load data
