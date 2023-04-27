@@ -1,0 +1,151 @@
+# Overview
+
+Title of project: "Trends in New HIV Diagnoses in the US, 2008-2020"
+
+Name of project author(s): Nicole Luisi
+
+Name of project reviewer: Katie Wells
+
+
+# Instructions
+
+
+# Specific project content evaluation
+
+
+## Background, Context and Motivation
+
+
+### Feedback and Comments
+The background is very well characterized and adequate context is given as to the purpose of this project thanks to the proper referencing. Clear evidence is given as to why this project was chosen and what it hopes to discover with its exploration and analysis. 
+
+
+### Summary assessment 
+* strong contextualization and motivation
+
+
+## Question description
+
+
+### Feedback and Comments
+Rather than a question being asked, this report evaluates trends in new HIV diagnoses according to race/ethnicity and other subgroups and predicts state-level new diagnoses; it is clear how the data obtained from AidsVu and Google Trends will be used in this evaluation 
+
+### Summary assessment
+* question/hypotheses fully clear
+
+
+## Data description
+
+
+### Feedback and Comments
+The data is described very concisely but thoroughly and was documented with the source for further viewing. 
+
+
+### Summary assessment
+* source and overall structure of data well explained
+
+
+## Data wrangling and exploratory analysis
+
+
+### Feedback and Comments
+The data is very thoroughly cleaned and explored; there is a little documentation for each step though there could be some more. Many figures are produced that explore the trends in the data and gives nice visualization to them. I appreciate that the main figures are in the manuscript and extra are in the exploratory file. 
+
+
+### Summary assessment
+* essentially no weaknesses in wrangling and exploratory component
+
+
+## Appropriateness of Analysis
+
+
+### Feedback and Comments
+While I do not really understand the JoinPoint program, this project made it very easy to understand the analyses done and easy to reproduce with the data without downloading the program. Everything was explained well and concisely. 
+
+
+### Summary assessment
+* strong and reasonable analysis
+
+## Presentation
+
+
+### Feedback and Comments
+The results are professional quality and are presented in a way that easily shows the main points of the projects. The colors and size make the graphs easy to interpret. My only recommendation would be to summarize the tables (if possible) to decrease their length. Perhaps the full table could be in the separate file and a shortened one in the manuscript. 
+
+
+### Summary assessment
+* results are very well presented
+
+
+## Discussion/Conclusions
+
+
+### Feedback and Comments
+The findings of the project are clearly discussed and the strengths of the study are concisely presented. They are in line with what I observed when I reproduced the project myself. The limitations discussed are sensible, and the mention of future directions allow for remedy of some of them. 
+
+
+### Summary assessment
+* strong, complete and clear discussion
+
+
+## Further comments
+
+
+# Overall project content evaluation
+
+
+## Structure
+
+
+### Feedback and Comments
+The project repository is well organized and easy to follow to reproduce. Everything was labeled sensibly. I found no unnecessary files and was able to follow the readme with ease. 
+
+
+### Summary assessment
+* well structured
+
+
+## Documentation 
+
+
+### Feedback and Comments
+There is documentation in each file that is adequate for reproducibilty. I think a few more notes here and there on why each step was chosen would not be amiss, but everything was organized in order so that made it easy to follow each step. 
+
+
+### Summary assessment
+* fully and well documented
+
+
+
+## Reproducibility
+
+
+### Feedback and Comments
+I was able to reproduce everything by following the readme instructions. I appreciate that you provided a way for reviewers (and others who might try to reproduce your project) to bypass the JoinPoint software while still being able to view your analysis. I had no issues and did not have to make any manual interventions or edits. 
+
+
+
+### Summary assessment
+* fully reproducible without issues
+
+
+## Thoroughness
+
+
+### Feedback and Comments
+The overall project was very thorough. While we can't see what all happens within the JoinPoint software, the output from it was very thorough and created easy-to-interpret figures. Everything was well-discussed and I was able to see how the outputs of this project related to what was set out to be evaluated.  
+
+
+### Summary assessment
+* strong level of thoroughness
+
+
+## Further comments
+
+This project is the best I have viewed. It is of professional quality and I believe it could be published as-is. It is very thorough and easy to follow, and the reasoning and analysis is very sound. The only thing I would change for improvement is the length of the tables as they take up multiple pages. If they could be abbreviated I think it would make this project perfect. 
+
+
+
+
+
+
